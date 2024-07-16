@@ -1,0 +1,20 @@
+{
+    "users":[
+        {"id":"hgj950",
+        "username":"",
+        "password":"",
+        "email":"",
+        "meetingDetails":[{"status":"","slot":"","meetingLink":"","date":""}]
+    }
+      
+    ],
+    "admin":[
+        {"id":"hgj950",
+        "username":"",
+        "password":"",
+        "email":"",
+        "meetingDetails":[{"status":"","slot":"","meetingLink":"","date":""}]
+    }
+
+    ]
+}
