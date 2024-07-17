@@ -1,20 +1,85 @@
 {
-    "users":[
-        {"id":"hgj950",
-        "username":"",
-        "password":"",
-        "email":"",
-        "meetingDetails":[{"status":"","slot":"","meetingLink":"","date":""}]
+  "users": [
+    {
+      "id": "hgj950",
+      "username": "",
+      "password": "",
+      "email": "",
+      "meetingDetails": [
+        {
+          "status": "",
+          "slot": "",
+          "meetingLink": "",
+          "date": ""
+        }
+      ]
     }
-      
-    ],
-    "admin":[
-        {"id":"hgj950",
-        "username":"",
-        "password":"",
-        "email":"",
-        "meetingDetails":[{"status":"","slot":"","meetingLink":"","date":""}]
+  ],
+  "admin": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin",
+      "email": "admin@gmail.com",
+      "meetingDetails": [
+        {
+          "id": "0.2799074188704256",
+          "slot": "26/7/2024, 11:50:00 pm",
+          "duration": 15,
+          "status": "active",
+          "meetingLink": ""
+        },
+        {
+          "id": "0.4961982558425073",
+          "slot": "17/7/2024, 11:41:00 pm",
+          "duration": 30,
+          "status": "active",
+          "meetingLink": ""
+        },
+        {
+          "id": "0.24087693647254405",
+          "slot": "27/7/2024, 5:40:00 pm",
+          "duration": 15,
+          "status": "active",
+          "meetingLink": ""
+        },
+        {
+          "id": "0.24316396297409826",
+          "slot": "20/7/2024, 5:08:00 am",
+          "duration": 30,
+          "status": "Active",
+          "meetingLink": ""
+        },
+        {
+          "id": "0.10536073064221863",
+          "slot": "20/7/2024, 8:18:00 am",
+          "duration": 15,
+          "status": "Active",
+          "meetingLink": ""
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "username": "janedoe",
+      "password": "jane",
+      "email": "janedoe@example.com",
+      "meetingDetails": [
+        {
+          "id": "0.3376817227182045",
+          "slot": "20/7/2024, 6:30:00 am",
+          "duration": 15,
+          "status": "Active",
+          "meetingLink": ""
+        },
+        {
+          "id": "0.776817227182045",
+          "slot": "20/7/2024, 6:30:00 am",
+          "duration": 30,
+          "status": "Active",
+          "meetingLink": ""
+        }
+      ]
     }
-
-    ]
+  ]
 }
