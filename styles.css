@@ -5,13 +5,147 @@
     
 
 }
+
 body{
     margin: auto;
     max-width: 1480px;
 }
 
+/* Navbar css starts here */
+#greet{
+    display: flex;
+    align-items: center;
+}
+#greet>img{
+height: 5vh;
+margin: 0;
+border-radius: 50%;
+margin-right: 10px;
+}
 
+header {
+    background-color: #9c5757;
+    color: white;
+    padding: 10px 0;
+    width: 100%;
+}
 
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 20px;
+  font-family: Arial, sans-serif;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo1 img {
+    width: 60px;
+    height: 60px;
+}
+
+.navbar .logo2 a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .nav-links li {
+    margin-left: 20px;
+}
+
+.navbar .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    transition: background-color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+.navbar .btn-login, .navbar .btn-signup {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+}
+
+.navbar .btn-login:hover, .navbar .btn-signup:hover {
+    background-color: #45a049;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    height: 2px;
+    width: 25px;
+    background-color: white;
+    margin: 4px 0;
+    transition: 0.4s;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction:row;
+        align-items: center;
+    }
+
+    .logo  {
+        display: flex;
+        flex-direction:column;  
+    }
+   
+
+    .navbar .logo1, .navbar .logo2 {
+        margin: 5px 0;
+    }
+
+    .navbar .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar .nav-links.active {
+        display: flex;
+    }
+
+    .navbar .nav-links li {
+        width: 100%;
+        text-align:center;
+        margin: 10px 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+        flex-direction:column;
+        margin-top: 10px;
+        align-items:end;
+        margin-left: 20px;
+    }
+    
+}
+/* Navbar css ends here */
 
 
 /*-------------------------- logo slider show create -------------------------*/

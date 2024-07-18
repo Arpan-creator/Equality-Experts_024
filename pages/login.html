@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            background-image:url(./image/login-bg.jpeg);
+        }
+        form{
+            width: 50%;
+            height: 350px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            background-color: aqua;
+            padding: 50px;
+            border-radius: 20px;
+        }
+        form>input:nth-child(3):active{
+            box-shadow: 0px 0px 10px mediumorchid;
+            background-color: midnightblue;
+            color:whitesmoke;
+            font-weight: 700;
+        }
+        form>input{
+            padding: 18px;
+            border-radius: 15px;
+            box-shadow: 10px 5px 10px gainsboro;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<form>
+    <input id="username" placeholder="username" >
+    <input id="userPass" placeholder="password" >
+    <input type="submit">
+</form>
+    
+</body>
+
+<script>
+
+    let form = document.querySelector("form")
+    
+    const handleFormSubmit = (e)=>{
+        // e = event
+       e.preventDefault()
+
+       let username = document.getElementById("username").value
+       let userpass = document.getElementById("userPass").value
+    
+      fetch("http://localhost:3000/users")
+      .then((res)=>res.json())
+      .then((res)=>{
+          let narr = res.filter((ele)=>{
+              return ele.username == username && ele.userpass == userpass
+          })
+
+          if(narr.length == 0){
+            alert("Please register first .")
+          }else{
+            alert("login successful")
+            localStorage.setItem("isLogged" , JSON.stringify({id:narr[0].id , username , wishlist : narr[0].wishlist }))
+            window.location.href = "../index.html"
+          }
+      })
+    }
+
+    form.addEventListener('submit' , (event)=>handleFormSubmit(event))
+
+</script>
+</html>
