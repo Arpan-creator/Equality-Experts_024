@@ -5,6 +5,10 @@
     
 
 }
+body{
+    margin: auto;
+    max-width: 1480px;
+}
 
 
 
@@ -62,13 +66,14 @@
 /* -------------------------feedback section-------------------------------------- */
 #feedbackcard{
     width: 80%;
-    /* height: 600px; */
+    min-height: 700px;
     background-color: #ecdff9;
     margin: auto;
     font-family: sans-serif;
     padding: 70px 100px 70px 100px;
     border-radius: 20px;
     margin-bottom: 40px;
+   
 }
 #feedbackcard>h1{
     font-size: clamp(39px, 40px, 42px);
@@ -77,6 +82,8 @@
 #buttoncenter{
     display: flex;
     justify-content: center;
+    margin-top: 20px;
+    
     
 
 }
@@ -86,6 +93,7 @@
     border-radius: 10px;
     background-color: #01b947;
     color: white;
+    cursor: pointer;
     
     
 }
@@ -94,50 +102,125 @@
     transform: translateX(10px);
     transition: transform 1s;
 }
-#feedbackinnercard{
+#button_div{
+ 
     display: flex;
-    border: 2px solid red;
-    height: 450px;
+    justify-content: end;
+    gap: 5px;
+    margin: 10px 0px 10px 0px;
 }
-#feedback_pic_div{
-    border: 1px solid;
+#button_div>button{
+    cursor: pointer;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: 0px;
+    border-radius: 7px;
+}
+#button_div>button:hover{
+    background-color: #01b947;
+}
+
+
+
+#feedbackinnercard1{
+    display: flex;
+   
+    
+    position: relative;
+    visibility: visible;
+    /* transition: visibility 1s; */
+    
+    
+}
+#feedbackinnercard2{
+    display: flex;
+    
+   
+    position: absolute;
+    
+    visibility: hidden;
+    /* transition: visibility 1s; */
+    
+    
+    
+}
+#feedbackinnercard3{
+    display: flex;
+    position: absolute;
+    visibility: hidden;
+    
+    
+    
+    
+}
+.feedback_pic_div{
+    
     width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-/* #feedback_pic_innerdiv{
-    border: 1px solid;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
-} */
-#feedback_pic_div>img{
+.feedback_pic_div>img{
     width: 170px;
     border-radius: 20px;
 }
-#feedback_text{
+.feedback_text{
     width: 60%;
-    border: 3px solid green;
+    min-height: 340px;
     font-size: 32px;
     display: flex;
     align-items: center;
     padding: 40px;
 }
-#feedback_pic_div>.name{
+.feedback_pic_div>.name{
     color: #7457d7;
     font-size: 24px;
     margin-top: 20px;
     margin-bottom: 10px;
 }
-#feedback_pic_div>.details{
+.feedback_pic_div>.details{
     font-size: 20px;
     
 }
 
+@media (width<=1300px){
+    #feedbackcard{
+        width: 95%;
 
+    }
+    .feedback_text{
+        font-size: 26px;
+    }
+}
+@media (width<=768px){
+    #feedbackcard{
+        padding: 70px 50px 70px 50px;
+    }
+    #feedbackinnercard1{
+        flex-direction: column;
+    }
+    #feedbackinnercard2{
+        flex-direction: column;
+    }
+    #feedbackinnercard3{
+        flex-direction: column;
+    }
+    .feedback_pic_div{
+        width: 100%;
+    }
+    .feedback_text{
+        width: 100%;
+        min-height: 0px;
+    }
+}
+@media (width<=480px){
+    #feedbackcard{
+        padding: 70px 10px 70px 10px;
+    }
+}
 
 
 
@@ -148,6 +231,7 @@ footer{
     align-items: center;
     justify-content: center;
     font-size: clamp(20px, 24px,26px);
+    border-top: 1px solid ;
     
 
 }
@@ -155,7 +239,7 @@ footer{
     font-family: sans-serif;
     /* border: 1px solid; */
     padding: 20px;
-    width: 90%;
+    width: 80%;
     
     /* width: 100%; */
     display: grid;
