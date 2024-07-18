@@ -23,38 +23,24 @@
       "email": "admin@gmail.com",
       "meetingDetails": [
         {
-          "id": "0.2799074188704256",
-          "slot": "26/7/2024, 11:50:00 pm",
-          "duration": 15,
-          "status": "active",
-          "meetingLink": ""
-        },
-        {
-          "id": "0.4961982558425073",
-          "slot": "17/7/2024, 11:41:00 pm",
+          "id": "0.9114600061565592",
+          "slot": "20/07/2024 00:17 BST",
           "duration": 30,
           "status": "active",
           "meetingLink": ""
         },
         {
-          "id": "0.24087693647254405",
-          "slot": "27/7/2024, 5:40:00 pm",
+          "id": "0.925717571665652",
+          "slot": "20/07/2024 14:33 IST",
           "duration": 15,
           "status": "active",
           "meetingLink": ""
         },
         {
-          "id": "0.24316396297409826",
-          "slot": "20/7/2024, 5:08:00 am",
-          "duration": 30,
-          "status": "Active",
-          "meetingLink": ""
-        },
-        {
-          "id": "0.10536073064221863",
-          "slot": "20/7/2024, 8:18:00 am",
+          "id": "0.4204459391909643",
+          "slot": "21/07/2024 05:48 EST",
           "duration": 15,
-          "status": "Active",
+          "status": "active",
           "meetingLink": ""
         }
       ]

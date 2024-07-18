@@ -6,37 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+
+    <style>
+        form {
+            input,
+            select,
+            option,
+            button {
+                border: 2px solid black;
+                border-radius: 10px;
+                font-weight: bold;
+                color: rgba(0, 0, 0, 0.67);
+                background: linear-gradient(rgba(32, 140, 217, 0.282), rgb(255, 255, 255));
+            }
+        }
+
+        button {
+            padding: 10px;
+        }
+
+        .meeting {
+            border: 1px solid rgba(39, 71, 105, 0.325);
+            width: 250px;
+            padding: 10% 5%;
+        }
+
+        .adminContainer {
+            display: flex;
+            flex-wrap: wrap;
+            width: 80%;
+            margin: auto;
+            justify-content: space-evenly;
+            gap: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .meeting {
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+            border-radius: 10px;
+        
+        }
+
+        button {
+            border-radius: 10px;
+            background-color: rgba(82, 167, 252, 0.318);
+        }
+    </style>
 </head>
-<styles>
-  
-</styles>
+
 <body>
-    <form action="" class="adminForm d-flex justify-content-center gap-5 my-5">
-        <label for="selectDate"></label>
+    <form action="" class="adminForm d-flex justify-content-center gap-5 my-5 flex-wrap">
         <input required type="datetime-local" id="selectDate" class="p-3">
-        <select required name="" id="duration"  class="p-3">
+
+        <select required id="timeZone" class="p-3">
+            <option value="UTC">UTC</option>
+            <option value="EST">EST</option>
+            <option value="BST">BST</option>
+            <option value="IST">IST</option>
+        </select>
+
+        <select required name="" id="duration" class="p-3">
             <option value="">Select Duration</option>
             <option value="minTime">15 min</option>
             <option value="maxTime">30 min</option>
         </select>
-        <button  class="p-3 px-5" type="submit">Submit</button>
+        <button class="p-3 px-5" type="submit">Submit</button>
     </form>
 
     <h2 class="text-center py-5">Your Available Slots</h2>
     <div class="adminContainer">
     </div>
-    <!-- "admin": [
-    {
-      "meetingDetails": [
-      { "status": "Active",
-        "slot": "",
-        "meetingLink": "", 
-        "duration" : "" }
-      ]
-    }
-  ] -->
+
 </body>
 <script src="https://apis.google.com/js/api.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
 
 <script type="module">
     let fetchURL = `http://localhost:3000/admin`;
@@ -59,6 +103,12 @@
     let maxTime = 30;
     let adminForm = document.querySelector(".adminForm");
 
+    // Disable past dates
+    let selectDate = document.getElementById('selectDate');
+    let now = new Date();
+    let nowISO = now.toISOString().slice(0, 16);
+    selectDate.min = nowISO;
+
     let setAdminAvail = async (event) => {
         event.preventDefault();
 
@@ -70,26 +120,36 @@
             return;
         }
 
-        adminData.forEach((ele)=>{
-            
-        })
+        let timeZone = event.target[1].value;
+        let durationSelect = event.target[2].value;
+
+
+        // Convert the selected date and time to the chosen time zone
+        let slot = event.target[0].value;
+        let date = moment.tz(slot, timeZone);
+        let formattedSlot = date.format('DD/MM/YYYY HH:mm') + ' ' + timeZone;
 
         let user = adminData.find(admin => admin.id === userId);
         let { meetingDetails } = user;
 
-        let id = Math.random().toString();
-        let slot = event.target[0].value;
-
-        let date = new Date(slot); // Create Date object from UTC string
-        slot = date.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-
-        let selectedTime = event.target[1].value;
+        let selectedTime = durationSelect;
         let duration = selectedTime === "maxTime" ? maxTime : minTime;
 
-        let newMeeting = { id, slot, duration, status: "active", meetingLink: "" };
+        // Check if the selected slot is already booked for the entire day
+        let isSlotBooked = meetingDetails.some(meeting => {
+            let meetingDate = moment(meeting.slot, 'DD/MM/YYYY HH:mm Z').format('YYYY-MM-DD');
+            let selectedDate = date.format('YYYY-MM-DD');
+            return meetingDate === selectedDate && meeting.slot === formattedSlot;
+        });
+
+        if (isSlotBooked) {
+            alert("The selected time slot is already booked. Please choose another time.");
+            return;
+        }
+
+        let id = Math.random().toString();
+        let newMeeting = { id, slot: formattedSlot, duration, status: "active", meetingLink: "" };
         let updatedMeetingDetails = [newMeeting, ...meetingDetails];
-
-
 
         await fetch(baseURL, {
             method: "PATCH",
@@ -100,44 +160,56 @@
         });
 
         alert("Meeting added successfully");
+        showdata({ meetingDetails: updatedMeetingDetails });
     };
 
-    adminForm.addEventListener("submit", setAdminAvail)
+    adminForm.addEventListener("submit", setAdminAvail);
 
-    let adminContainer = document.querySelector(".adminContainer")
-
+    let adminContainer = document.querySelector(".adminContainer");
 
     let showdata = async (ele) => {
-        adminContainer.innerHTML = ""
+        adminContainer.innerHTML = "";
 
-        // data.forEach((ele) => {
+        // Sort meeting details by date
+        ele.meetingDetails.sort((a, b) => {
+            let dateA = moment(a.slot, 'DD/MM/YYYY HH:mm Z');
+            let dateB = moment(b.slot, 'DD/MM/YYYY HH:mm Z');
+            return dateA - dateB;
+        });
 
         ele.meetingDetails.forEach(meeting => {
-            let card = document.createElement("div")
+            let card = document.createElement("div");
             let meetingElement = document.createElement('div');
             meetingElement.classList.add('meeting');
             meetingElement.innerHTML = `
-                    <p><strong>Slot:</strong> ${meeting.slot}</p>
-                    <p><strong>Duration:</strong> ${meeting.duration} min</p>
-                    <p><strong>Status:</strong> ${meeting.status}</p>
-                        `;
-                        let deleteBtn =  document.createElement("button")
-                        deleteBtn.innerHTML = "Delete"
-                        meetingElement.append(deleteBtn)
+                <p><strong>Slot:</strong> ${meeting.slot}</p>
+                <p><strong>Duration:</strong> ${meeting.duration} min</p>
+                <p><strong>Status:</strong> ${meeting.status}</p>
+            `;
+            let deleteBtn = document.createElement("button");
+            deleteBtn.innerHTML = "Delete";
+            deleteBtn.classList.add("px-5");
+
+            deleteBtn.addEventListener("click", async () => {
+                let updatedMeetingDetails = ele.meetingDetails.filter(m => m.id !== meeting.id);
+                await fetch(baseURL, {
+                    method: "PATCH",
+                    headers: {
+                        "content-type": 'application/json'
+                    },
+                    body: JSON.stringify({ meetingDetails: updatedMeetingDetails })
+                });
+                showdata({ meetingDetails: updatedMeetingDetails });
+            });
+
+            meetingElement.append(deleteBtn);
             card.append(meetingElement);
 
-            deleteBtn.classList.add("px-5")
-            meetingElement.classList.add("d-flex")
-            meetingElement.classList.add("justify-content-evenly")
-            
-            adminContainer.append(card)
+            adminContainer.append(card);
         });
+    };
 
-
-        // });
-    }
-
-    showdata(curradmin)
+    showdata(curradmin);
 </script>
 
 </html>
