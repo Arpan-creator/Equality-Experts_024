@@ -25,6 +25,7 @@ const showData = async (URL)=>{
     if(isLogged){
        loggedUser.innerHTML = isLogged.username
        login.innerHTML = "Log out"
+       signup.style.display='none';
        login.addEventListener("click" , ()=>{
          localStorage.removeItem('isLogged')
        })
@@ -36,6 +37,7 @@ const showData = async (URL)=>{
 
 
 showData('http://localhost:3000/users')
+showData('http://localhost:3000/admin')
 
 signup.addEventListener("click" , ()=>{
     window.location.href = "./pages/signup.html"

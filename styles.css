@@ -32,6 +32,7 @@ header {
 .navbar {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     align-items: center;
     padding: 0 20px;
 }
@@ -42,8 +43,8 @@ header {
 }
 
 .navbar .logo1 img {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
 }
 
 .navbar .logo2 a {
