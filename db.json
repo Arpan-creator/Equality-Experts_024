@@ -1,10 +1,6 @@
 {
   "users": [
     {
-      "id": "hgj950",
-      "username": "",
-      "password": "",
-      "email": "",
       "meetingDetails": [
         {
           "status": "",
@@ -13,6 +9,18 @@
           "date": ""
         }
       ]
+    },
+    {
+      "id": "0.3890061123692239",
+      "username": "Arp",
+      "useremail": "www.arpan.01@gmail.com",
+      "userpass": "123"
+    },
+    {
+      "id": "0.2536764844489783",
+      "username": "ab",
+      "useremail": "gh@gmail.com",
+      "userpass": "321"
     }
   ],
   "admin": [
