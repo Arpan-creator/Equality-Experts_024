@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Bookings Dashboard</title>
+    <link rel="stylesheet" href="../styles.css">
+
     <style>
         /* Reset default margin and padding, set background color */
         body {
@@ -25,6 +28,7 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            margin-top: 8%;
         }
 
         /* Title styling */
@@ -47,13 +51,13 @@
         .booking-item h3 {
             margin-top: 0;
             margin-bottom: 10px;
-            color: #555;
+            color: #3e3c3c;
         }
 
         /* Paragraph styling for booking details */
         .booking-item p {
             margin: 5px 0;
-            color: #777;
+            color: #413b3bd7;
         }
 
         /* Buttons within booking item */
@@ -61,7 +65,7 @@
             padding: 8px 15px;
             margin-right: 10px;
             cursor: pointer;
-            background-color: #007bff;
+            background-color: #2175cf;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -108,16 +112,60 @@
             color: #000;
             text-decoration: none;
         }
-        
     </style>
 </head>
+
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <div class="logo1">
+                    <img src="../image/Nav-image/logo_new-removebg-preview.png" alt="">
+                </div>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links">
+                <li><a id="home">Home</a></li>
+                <li><a id="slotsPage">Slots Availability</a></li>
+
+                <li><button href="../index.html" class="btn-login" id="logout_button" onclick="handleSignOut()">Log
+                        Out</button>
+                </li>
+
+
+            </ul>
+
+        </nav>
+
+    </header>
+
     <div class="container">
         <h1>Your Bookings</h1>
         <div id="bookingList"></div>
     </div>
 
     <script>
+        let slotsPage = document.querySelector("#slotsPage")
+        let home = document.querySelector("#home")
+        let btnlogin = document.querySelector(".btn-login")
+        let redirectHome = () => {
+
+        }
+        btnlogin.addEventListener("click", redirectHome)
+        home.addEventListener("click", () => {
+            // localStorage.removeItem("loggedUser")
+            window.location.href = "../index.html"
+        })
+
+
+        slotsPage.addEventListener("click", () => {
+            window.location.href = "./user.html"
+        })
+
         let userId = '1'; // Hardcoded user id for testing
 
         async function fetchUserData(userId) {
@@ -198,11 +246,12 @@
 
         function rescheduleBooking(event) {
             const bookingId = event.target.getAttribute('data-id');
-            // Implement reschedule functionality here
         }
 
-        // Initial load
         loadBookings();
     </script>
+
+    <script type="module" src="../script.js"></script>
 </body>
+
 </html>
