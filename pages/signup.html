@@ -41,33 +41,7 @@
         #signup>h2{
             margin-bottom: 7px;
         }
-        #signuppubyother{
-            display: grid;
-            align-items: center;
-            gap: 10px;
-            /* border: 1px solid; */
-            grid-template-columns: repeat(2,1fr);
-            gap: 10px;
-            margin-top: 15px;
-            font-size: clamp(10px,16px,18px);
-        }
-        #signuppubyother>div{
-            border: 1px solid;
-            border-radius: 10px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            padding: 7px 10px;
-
-        }
-        #signuppubyother>div>img{
-            height: 80%;
-            
-        }
-        #signuppubyother>div:nth-of-type(1)>img{
-            margin-right: 10px;
-            
-        }
+       
         
         #normalform>input{
             width: 100%;
@@ -164,16 +138,7 @@
             <div id="signup">
                 <h2>Get Started Now</h2>
                 <p>Enter your credintial  to access your account</p>
-                <div id="signuppubyother">
-                    <div>
-                        <img src="../image/G logo.png" alt="">
-                        <p>Signup with Google</p>
-                    </div>
-                    <div >
-                        <img src="../image/Apple-Logo-removebg-preview.png" alt="">
-                        <p>Signup with Apple</p>
-                    </div>
-                </div><br><br>
+                
                 
                 <hr><br><br>
                 <div id="normalform">
@@ -224,66 +189,68 @@
     let message=document.querySelector("#message")
     let submit_btn=document.querySelector("#submit_btn")
 
-    const formsubmit=()=>{
+    // const formsubmit=()=>{
         
-        if(checkbox_input.checked){
-            message.innerHTML=""
-            console.log("yes")
-        }
-        else{
-            message.innerHTML="Please accept T&c"
-        }
-    }
-
-    submit_btn.addEventListener("click",formsubmit)
-
-    // let form = document.querySelector("form")
-    
-    // const handleFormSubmit = (e)=>{
-    //     // e = event
-    //    e.preventDefault()
-
-    //    let username = document.getElementById("username").value
-    //    let useremail = document.getElementById("userEmail").value
-    //    let userpass = document.getElementById("userPass").value
-    
-    //    let obj = {
-    //        id : Math.random().toString(),
-    //        username , 
-    //        useremail,
-    //        userpass ,
-    //     //    wishlist : []
-    //    }
-
-    //    fetch(`http://localhost:3000/users`)
-    //    .then((res)=>res.json())
-    //    .then((res)=>{
-    //     let narr = res.filter((ele)=>{
-    //         return ele.username == username
-    //     })
-
-    //     if(narr.length == 0 ){
-    //         fetch(`http://localhost:3000/users` , {
-    //             method : "POST" , 
-    //             headers : {
-    //                 "Content-type" : "application/json"
-    //             },
-    //             body : JSON.stringify(obj)
-    //         }).then((res)=>{
-    //             window.location.href = "login.html"
-    //         })
-    //     }else{
-    //         alert("username already exists !!")
+    //     if(checkbox_input.checked){
+    //         message.innerHTML=""
+    //         console.log("yes")
     //     }
-    //    })
+    //     else{
+    //         message.innerHTML="Please accept T&c"
+    //     }
+    // }
+
+    // 
+
+
+    
+    const formsubmit = ()=>{
+        if(checkbox_input.checked){
+    
+      }
+  
+    let username=name_input.value
+    let useremail=email_input.value
+    let userpass=password_input.value
+   
+    
+       let obj = {
+           id : Math.random().toString(),
+           username , 
+           useremail,
+           userpass ,
+       
+       }
+
+       fetch(`http://localhost:3000/users`)
+       .then((res)=>res.json())
+       .then((res)=>{
+        let narr = res.filter((ele)=>{
+            return ele.username == username
+        })
+
+        if(narr.length == 0 ){
+            fetch(`http://localhost:3000/users` , {
+                method : "POST" , 
+                headers : {
+                    "Content-type" : "application/json"
+                },
+                body : JSON.stringify(obj)
+            }).then((res)=>{
+                window.location.href = "login.html"
+            })
+        }else{
+            alert("username already exists !!")
+        }
+       })
 
      
 
-    // }
+    }
 
 
-
-    // form.addEventListener('submit' , (event)=>handleFormSubmit(event))
+    submit_btn.addEventListener("click",formsubmit)
+    
 
 </script>
 </html>
