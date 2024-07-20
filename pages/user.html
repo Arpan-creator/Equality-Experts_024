@@ -55,73 +55,90 @@
                 btn.addEventListener("click", () => {
                     userId = ele.id;
                     slotContainer.classList.remove("hide");
-                    showAvailableSlots(ele);
+                    showAvailableSlots(ele.meetingDetails);
                 });
 
                 card.append(name, btn);
                 main.append(card);
             });
         };
-        let showAvailableSlots = async (user) => {
-    slotContainer.innerHTML = "";
 
-    user.meetingDetails.forEach(async (ele) => {
-        if (ele.status === "available") {
-            const eventCard = document.createElement('div');
-            eventCard.className = 'card';
+        let showAvailableSlots = (arr) => {
+            slotContainer.innerHTML = "";
 
-            eventCard.innerHTML = `
-                <h3>${ele.summary}</h3>
-                <p>${ele.location}</p>
-                <p><strong>Meeting Start Time:</strong> ${ele.startTime}</p>
-                <p><strong>End:</strong> ${ele.endTime}</p>
-                <button class="bookSlotBtn">Book Slot</button>
-            `;
-            let bookSlotBtn = eventCard.querySelector(".bookSlotBtn");
-            bookSlotBtn.addEventListener("click", async () => {
-                try {
-                    // Update the status locally
-                    ele.status = "confirmed";
+            arr.forEach((ele) => {
+                if (ele.status === "available") {
+                    const eventCard = document.createElement('div');
+                    eventCard.className = 'card';
 
-                    // Prepare data to post into meetingDetails of the logged-in user
-                    let newMeetingDetail = {
-                        id: ele.id,
-                        summary: ele.summary,
-                        start: ele.startTime,
-                        end: ele.endTime,
-                        status: "active"
-                    };
+                    eventCard.innerHTML = `
+                        <h3>${ele.summary}</h3>
+                        <p>${ele.location}</p>
+                        <p><strong>Meeting Start Time:</strong> ${ele.startTime}</p>
+                        <p><strong>End:</strong> ${ele.endTime}</p>
+                        <button class="bookSlotBtn">Book Slot</button>
+                    `;
+                    let bookSlotBtn = eventCard.querySelector(".bookSlotBtn");
+                    bookSlotBtn.addEventListener("click", async () => {
+                        try {
+                            // Update the status locally
+                            ele.status = "confirmed";
 
-                    // Determine whether to use POST or PATCH based on existing meetingDetails
-                    let method = 'POST';
-                    let endpoint = `http://localhost:3000/users/${loggedInUserId}/meetingDetails/${ele.id}`;
+                            // Find the event in the data and update it
+                            let updatedUser = { ...ele }; // Prepare the updated object
+                            let updatedData = {
+                                id: userId, // Assuming the userId is the unique identifier for the user
+                                meetingDetails: arr.map(detail => detail.id === ele.id ? updatedUser : detail)
+                            };
 
-                    // Send request to add/update meetingDetails
-                    let response = await fetch(endpoint, {
-                        method: 'PATCH', // Always use PATCH for updating existing resources
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(newMeetingDetail),
+                            // Send a PATCH request to update the whole event
+                            await fetch(`http://localhost:3000/events/${userId}`, {
+                                method: 'PATCH',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(updatedData),
+                            });
+
+                            // Prepare data to post into meetingDetails of the logged-in user
+                            let newMeetingDetail = {
+                                id: ele.id,
+                                summary: ele.summary,
+                                start: ele.startTime,
+                                end: ele.endTime,
+                                status: "active"
+                            };
+
+                            // Determine whether to use POST or PATCH based on existing meetingDetails
+                            let method = 'POST';
+                            let endpoint = `http://localhost:3000/users/${loggedInUserId}/meetingDetails`;
+
+                            // Check if user already has meetingDetails
+                            if (ele.meetingDetails && ele.meetingDetails.length > 0) {
+                                method = 'PATCH';
+                                endpoint = `http://localhost:3000/users/${loggedInUserId}/meetingDetails/${ele.id}`;
+                            }
+
+                            // Send request to add/update meetingDetails
+                            await fetch(endpoint, {
+                                method: method,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(newMeetingDetail),
+                            });
+
+                            // Optionally redirect or show success message
+                            alert('Slot booked successfully');
+                        } catch (error) {
+                            console.error('Error booking slot:', error);
+                        }
                     });
 
-                    // Check if the response is successful
-                    if (response.ok) {
-                        // Optionally redirect or show success message
-                        alert('Slot booked successfully');
-                    } else {
-                        // Handle the error if needed
-                        console.error('Failed to book slot:', response.statusText);
-                    }
-                } catch (error) {
-                    console.error('Error booking slot:', error);
+                    slotContainer.appendChild(eventCard);
                 }
             });
-
-            slotContainer.appendChild(eventCard);
-        }
-    });
-};
+        };
     </script>
 </body>
 
