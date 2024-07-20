@@ -23,7 +23,7 @@
     <script>
         let main = document.querySelector(".main");
         let slotContainer = document.querySelector(".slotContainer");
-        let url = `http://localhost:3000/events`;
+        let url = 'http://localhost:3000/events'; // Adjusted URL for events
 
         let fetchData = async (url) => {
             try {
@@ -62,83 +62,89 @@
                 main.append(card);
             });
         };
-
         let showAvailableSlots = (arr) => {
-            slotContainer.innerHTML = "";
+    slotContainer.innerHTML = "";
 
-            arr.forEach((ele) => {
-                if (ele.status === "available") {
-                    const eventCard = document.createElement('div');
-                    eventCard.className = 'card';
+    arr.forEach((ele) => {
+        if (ele.status === "available") {
+            const eventCard = document.createElement('div');
+            eventCard.className = 'card';
 
-                    eventCard.innerHTML = `
-                        <h3>${ele.summary}</h3>
-                        <p>${ele.location}</p>
-                        <p><strong>Meeting Start Time:</strong> ${ele.startTime}</p>
-                        <p><strong>End:</strong> ${ele.endTime}</p>
-                        <button class="bookSlotBtn">Book Slot</button>
-                    `;
-                    let bookSlotBtn = eventCard.querySelector(".bookSlotBtn");
-                    bookSlotBtn.addEventListener("click", async () => {
-                        try {
-                            // Update the status locally
-                            ele.status = "confirmed";
+            eventCard.innerHTML = `
+                <h3>${ele.summary}</h3>
+                <p><strong>Meeting Start Time:</strong> ${ele.startTime}</p>
+                <p><strong>End:</strong> ${ele.endTime}</p>
+                <button class="bookSlotBtn">Book Slot</button>
+            `;
+            let bookSlotBtn = eventCard.querySelector(".bookSlotBtn");
+            bookSlotBtn.addEventListener("click", async () => {
+                try {
+                    // Construct endpoint
+                    let endpoint = `http://localhost:3000/users/${loggedInUserId}`;
 
-                            // Find the event in the data and update it
-                            let updatedUser = { ...ele }; // Prepare the updated object
-                            let updatedData = {
-                                id: userId, // Assuming the userId is the unique identifier for the user
-                                meetingDetails: arr.map(detail => detail.id === ele.id ? updatedUser : detail)
-                            };
+                    // Fetch user data to get current meeting details
+                    let response = await fetch(endpoint);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user data');
+                    }
+                    let userData = await response.json();
 
-                            // Send a PATCH request to update the whole event
-                            await fetch(`http://localhost:3000/events/${userId}`, {
-                                method: 'PATCH',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify(updatedData),
-                            });
-
-                            // Prepare data to post into meetingDetails of the logged-in user
+                    // Update or push new meeting detail
+                    let updatedUser;
+                    if (userData.meetingDetails && userData.meetingDetails.length > 0) {
+                        // Update existing meeting detail if already exists
+                        let existingIndex = userData.meetingDetails.findIndex(detail => detail.id === ele.id);
+                        if (existingIndex !== -1) {
+                            // Update status to confirmed
+                            userData.meetingDetails[existingIndex].status = 'confirmed';
+                        } else {
+                            // Add new meeting detail using spread operator
                             let newMeetingDetail = {
                                 id: ele.id,
+                                startTime: ele.startTime,
+                                endTime: ele.endTime,
                                 summary: ele.summary,
-                                start: ele.startTime,
-                                end: ele.endTime,
-                                status: "active"
+                                link: ele.link,
+                                status: "confirmed" // Set status to confirmed for new meeting detail
                             };
-
-                            // Determine whether to use POST or PATCH based on existing meetingDetails
-                            let method = 'POST';
-                            let endpoint = `http://localhost:3000/users/${loggedInUserId}/meetingDetails`;
-
-                            // Check if user already has meetingDetails
-                            if (ele.meetingDetails && ele.meetingDetails.length > 0) {
-                                method = 'PATCH';
-                                endpoint = `http://localhost:3000/users/${loggedInUserId}/meetingDetails/${ele.id}`;
-                            }
-
-                            // Send request to add/update meetingDetails
-                            await fetch(endpoint, {
-                                method: method,
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify(newMeetingDetail),
-                            });
-
-                            // Optionally redirect or show success message
-                            alert('Slot booked successfully');
-                        } catch (error) {
-                            console.error('Error booking slot:', error);
+                            userData.meetingDetails = [...userData.meetingDetails, newMeetingDetail];
                         }
+                    } else {
+                        // Add new meeting detail since meetingDetails array is empty
+                        let newMeetingDetail = {
+                            id: ele.id,
+                            startTime: ele.startTime,
+                            endTime: ele.endTime,
+                            summary: ele.summary,
+                            link: ele.link,
+                            status: "confirmed" // Set status to confirmed for new meeting detail
+                        };
+                        userData.meetingDetails = [newMeetingDetail];
+                    }
+
+                    // Send a PATCH request to update the meetingDetails
+                    await fetch(endpoint, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(userData),
                     });
 
-                    slotContainer.appendChild(eventCard);
+                    // Update the status locally
+                    ele.status = "confirmed";
+
+                    // Optionally redirect or show success message
+                    alert('Meeting detail updated successfully');
+                } catch (error) {
+                    console.error('Error updating meeting detail:', error);
                 }
             });
-        };
+
+            slotContainer.appendChild(eventCard);
+        }
+    });
+};
     </script>
 </body>
 
