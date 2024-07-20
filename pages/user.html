@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <title>Dashboard</title>
     <style>
-        .hide {
-            display: none;
-            visibility: hidden;
-        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,228 +17,183 @@
         }
 
         .container {
-            background-color: #fff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            border-radius: 8px;
-            width: 80%;
             max-width: 800px;
-        }
-
-        .card {
-            background-color: #f0f0f0;
+            width: 100%;
+            background-color: #fff;
             padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
         }
 
-        .card p {
+        .booking-item {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+
+        .booking-item h3 {
+            margin-top: 0;
             margin-bottom: 10px;
-            color: #6c757d;
+            color: #555;
         }
 
-        .card button {
+        .booking-item p {
+            margin: 5px 0;
+            color: #777;
+        }
+
+        .booking-item button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            cursor: pointer;
             background-color: #007bff;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            border-radius: 4px;
+            transition: background-color 0.3s;
         }
 
-        .card button:hover {
+        .booking-item button:hover {
             background-color: #0056b3;
         }
 
-        .slotContainer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .cards {
-            flex: 1 1 300px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .cards:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cards h3 {
-            margin-bottom: 10px;
-            color: #343a40;
-        }
-
-        .cards p {
-            margin-bottom: 5px;
-            color: #6c757d;
-        }
-
-        .bookSlotBtn {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .bookSlotBtn:hover {
-            background-color: #218838;
-        }
-
-        .hide {
+        .modal {
             display: none;
-            visibility: hidden;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
         }
-        
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+        }
     </style>
 </head>
-
-
 <body>
-    <div class="container main"></div>
-
-
-    <div class="slotContainer hide container d-flex flex-wrap gap-5"></div>
-
+    <div class="container">
+        <h1>Your Bookings</h1>
+        <div id="bookingList"></div>
+    </div>
 
     <script>
-        let main = document.querySelector(".main");
-        let slotContainer = document.querySelector(".slotContainer");
-        let url = 'http://localhost:3000/events'; // Adjusted URL for events
+        let userId = '1'; // Hardcoded user id for testing
 
+        async function fetchUserData(userId) {
+            const response = await fetch(`http://localhost:3000/users/${userId}`);
+            const user = await response.json();
+            return user;
+        }
 
-        let fetchData = async (url) => {
-            try {
-                let response = await fetch(url);
-                let data = await response.json();
-                showData(data);
-                return data;
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData(url);
+        async function loadBookings() {
+            const user = await fetchUserData(userId);
+            displayBookings(user.meetingDetails);
+        }
 
+        function displayBookings(meetings) {
+            const bookingList = document.getElementById('bookingList');
+            bookingList.innerHTML = '';
 
-        let userId;
-        let loggedInUserId = '1'; // Hardcoded logged-in user id for testing
-
-
-        let showData = (data) => {
-            main.innerHTML = "";
-
-
-            data.forEach((ele) => {
-                let card = document.createElement("div");
-                card.className = "card";
-
-
-                let name = document.createElement("p");
-                name.innerText = ele.id;
-
-
-                let btn = document.createElement("button");
-                btn.innerText = "Select User";
-                btn.addEventListener("click", () => {
-                    userId = ele.id;
-                    slotContainer.classList.remove("hide");
-                    showAvailableSlots(ele.meetingDetails);
-                });
-
-
-                card.append(name, btn);
-                main.append(card);
+            meetings.forEach(meeting => {
+                const bookingItem = document.createElement('div');
+                bookingItem.className = 'booking-item';
+                bookingItem.innerHTML = `
+                    <h3>${meeting.summary}</h3>
+                    <p><strong>Start Time:</strong> ${meeting.startTime}</p>
+                    <p><strong>End Time:</strong> ${meeting.endTime}</p>
+                    <button data-id="${meeting.id}" onclick="deleteBooking(event)">Delete Booking</button>
+                    <button data-id="${meeting.id}" onclick="rescheduleBooking(event)">Reschedule</button>
+                `;
+                bookingList.appendChild(bookingItem);
             });
-        };
+        }
 
+        async function deleteBooking(event) {
+            const bookingId = event.target.getAttribute('data-id');
 
-        let showAvailableSlots = (arr) => {
-            slotContainer.innerHTML = "";
+            // Fetch the current user data
+            const userResponse = await fetch(`http://localhost:3000/users/${userId}`);
+            const user = await userResponse.json();
 
+            // Filter out the booking from the user's meetingDetails
+            const updatedMeetings = user.meetingDetails.filter(booking => booking.id !== bookingId);
 
-            arr.forEach((ele) => {
-                if (ele.status === "available") {
-                    const eventCard = document.createElement('div');
-                    eventCard.className = 'cards';
+            // Update the user data with the filtered meetings
+            await fetch(`http://localhost:3000/users/${userId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ meetingDetails: updatedMeetings })
+            });
 
+            // Fetch the events data
+            const eventsResponse = await fetch('http://localhost:3000/events');
+            const events = await eventsResponse.json();
 
-                    eventCard.innerHTML = `
-                        <h3>${ele.summary}</h3>
-                        <p><strong>Meeting Start Time:</strong> ${ele.startTime}</p>
-                        <p><strong>End:</strong> ${ele.endTime}</p>
-                        <button class="bookSlotBtn">Book Slot</button>
-                    `;
-                    let bookSlotBtn = eventCard.querySelector(".bookSlotBtn");
-                    bookSlotBtn.addEventListener("click", async () => {
-                        try {
-                            // Update the status locally
-                            ele.status = "available";
+            // Find and update the specific event detail
+            for (let event of events) {
+                const meetingIndex = event.meetingDetails.findIndex(detail => detail.id === bookingId);
+                if (meetingIndex !== -1) {
+                    // Update status to available
+                    event.meetingDetails[meetingIndex].status = 'available';
 
-
-                            // Construct endpoint for updating event
-                            let endpoint = `http://localhost:3000/events/${userId}`;
-
-
-                            // Fetch the current event data
-                            let response = await fetch(endpoint);
-                            if (!response.ok) {
-                                throw new Error('Failed to fetch event data');
-                            }
-                            let eventData = await response.json();
-
-
-                            // Find and update the specific meeting detail
-                            let meetingIndex = eventData.meetingDetails.findIndex(detail => detail.id === ele.id);
-                            if (meetingIndex !== -1) {
-                                eventData.meetingDetails[meetingIndex].status = "available";
-                            }
-
-
-                            // Send a PATCH request to update the event details
-                            await fetch(endpoint, {
-                                method: 'PATCH',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify(eventData),
-                            });
-
-
-                            alert('Meeting detail updated successfully');
-                            window.location.href = "bookings.html";
-                        } catch (error) {
-                            console.error('Error updating meeting detail:', error);
-                        }
+                    // Update the event data
+                    await fetch(`http://localhost:3000/events/${event.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(event)
                     });
 
-
-                    slotContainer.appendChild(eventCard);
+                    break; // Stop searching after updating the event
                 }
-            });
-        };
+            }
+
+            // Reload the bookings
+            loadBookings();
+        }
+
+        function rescheduleBooking(event) {
+            const bookingId = event.target.getAttribute('data-id');
+            // Implement reschedule functionality here
+        }
+
+        // Initial load
+        loadBookings();
     </script>
 </body>
-
-
 </html>
-
-
-

@@ -18,46 +18,6 @@
           "summary": "task-2",
           "link": "https://www.google.com/calendar/event?eid=YnJodWNrc2lnanB1Zm1icjU3OWtkNzQ0czggaS5yaXRpa2FtaXNoQG0",
           "status": "available"
-        },
-        {
-          "id": "lyt4q495orognnzx2bm",
-          "startTime": "2024-07-23T21:25:00.000Z",
-          "endTime": "2024-07-25T18:21:00.000Z",
-          "summary": "task-2",
-          "link": "https://www.google.com/calendar/event?eid=bzZ1b3J2bG9ybzFodW84czVtYjh1NGQwNDAgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q495h139363goaj",
-          "startTime": "2024-07-25T19:56:00.000Z",
-          "endTime": "2024-07-25T20:57:00.000Z",
-          "summary": "task",
-          "link": "https://www.google.com/calendar/event?eid=cjBmbTUzdGdzZ2dnMDQyY3Fhc2puYXExMG8gaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q4955f69a0ss1xo",
-          "startTime": "2024-07-25T21:40:00.000Z",
-          "endTime": "2024-07-27T18:36:00.000Z",
-          "summary": "new data",
-          "link": "https://www.google.com/calendar/event?eid=YmxxMW5qYW05OGsxOWE1M2s1bXNwM2tnY2cgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q495buqkzgglkqd",
-          "startTime": "2024-07-27T18:23:00.000Z",
-          "endTime": "2024-07-28T18:23:00.000Z",
-          "summary": "new task",
-          "link": "https://www.google.com/calendar/event?eid=Y2U2MWw4OG00ZDNoaWJtZWxiMWczODFoanMgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q4959d6mb4iapdq",
-          "startTime": "2024-07-27T18:49:00.000Z",
-          "endTime": "2024-08-03T18:50:00.000Z",
-          "summary": "new data 11",
-          "link": "https://www.google.com/calendar/event?eid=Z3M3anJjZmN0Z2FwdXNnNXBucmJqdG5jNDAgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
         }
       ]
     },
@@ -73,22 +33,6 @@
           "status": "available"
         },
         {
-          "id": "lyt4q495cymnfj44qv8",
-          "startTime": "2024-07-23T21:25:00.000Z",
-          "endTime": "2024-07-25T18:21:00.000Z",
-          "summary": "task-2",
-          "link": "https://www.google.com/calendar/event?eid=YnJodWNrc2lnanB1Zm1icjU3OWtkNzQ0czggaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q495orognnzx2bm",
-          "startTime": "2024-07-23T21:25:00.000Z",
-          "endTime": "2024-07-25T18:21:00.000Z",
-          "summary": "task-2",
-          "link": "https://www.google.com/calendar/event?eid=bzZ1b3J2bG9ybzFodW84czVtYjh1NGQwNDAgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
           "id": "lyt4q495h139363goaj",
           "startTime": "2024-07-25T19:56:00.000Z",
           "endTime": "2024-07-25T20:57:00.000Z",
@@ -102,22 +46,6 @@
           "endTime": "2024-07-27T18:36:00.000Z",
           "summary": "new data",
           "link": "https://www.google.com/calendar/event?eid=YmxxMW5qYW05OGsxOWE1M2s1bXNwM2tnY2cgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q495buqkzgglkqd",
-          "startTime": "2024-07-27T18:23:00.000Z",
-          "endTime": "2024-07-28T18:23:00.000Z",
-          "summary": "new task",
-          "link": "https://www.google.com/calendar/event?eid=Y2U2MWw4OG00ZDNoaWJtZWxiMWczODFoanMgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q4959d6mb4iapdq",
-          "startTime": "2024-07-27T18:49:00.000Z",
-          "endTime": "2024-08-03T18:50:00.000Z",
-          "summary": "new data 11",
-          "link": "https://www.google.com/calendar/event?eid=Z3M3anJjZmN0Z2FwdXNnNXBucmJqdG5jNDAgaS5yaXRpa2FtaXNoQG0",
           "status": "available"
         }
       ]
@@ -136,48 +64,7 @@
       "username": "ab",
       "useremail": "gh@gmail.com",
       "userpass": "321",
-      "meetingDetails": [
-        {
-          "id": "lyt4q495qqd2ifc1bml",
-          "startTime": "2024-07-23T17:41:00.000Z",
-          "endTime": "2024-07-23T18:42:00.000Z",
-          "summary": "sjg;a",
-          "link": "https://www.google.com/calendar/event?eid=M3RpbGM0MzJsbjFoZWo3Mmh0bXQ2M2RyNTAgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q495buqkzgglkqd",
-          "startTime": "2024-07-27T18:23:00.000Z",
-          "endTime": "2024-07-28T18:23:00.000Z",
-          "summary": "new task",
-          "link": "https://www.google.com/calendar/event?eid=Y2U2MWw4OG00ZDNoaWJtZWxiMWczODFoanMgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q4959d6mb4iapdq",
-          "startTime": "2024-07-27T18:49:00.000Z",
-          "endTime": "2024-08-03T18:50:00.000Z",
-          "summary": "new data 11",
-          "link": "https://www.google.com/calendar/event?eid=Z3M3anJjZmN0Z2FwdXNnNXBucmJqdG5jNDAgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q495cymnfj44qv8",
-          "startTime": "2024-07-23T21:25:00.000Z",
-          "endTime": "2024-07-25T18:21:00.000Z",
-          "summary": "task-2",
-          "link": "https://www.google.com/calendar/event?eid=YnJodWNrc2lnanB1Zm1icjU3OWtkNzQ0czggaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        },
-        {
-          "id": "lyt4q495h139363goaj",
-          "startTime": "2024-07-25T19:56:00.000Z",
-          "endTime": "2024-07-25T20:57:00.000Z",
-          "summary": "task",
-          "link": "https://www.google.com/calendar/event?eid=cjBmbTUzdGdzZ2dnMDQyY3Fhc2puYXExMG8gaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
-        }
-      ]
+      "meetingDetails": []
     }
   ]
 }
