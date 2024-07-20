@@ -3,9 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+#dashboard {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#bookings {
+    margin-top: 20px;
+}
+
+.booking {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.booking:last-child {
+    border-bottom: none;
+}
+
+.booking-details {
+    flex-grow: 1;
+}
+
+button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    </style>
 </head>
 <body>
-    
+    <div id="dashboard">
+        <h1>Your Bookings</h1>
+        <div id="bookings"></div>
+    </div>
+
+    <!-- Reschedule Modal -->
+    <div id="rescheduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Reschedule Booking</h2>
+            <form id="rescheduleForm">
+                <label for="newStartTime">New Start Time:</label>
+                <input type="datetime-local" id="newStartTime" name="newStartTime" required>
+                <label for="newEndTime">New End Time:</label>
+                <input type="datetime-local" id="newEndTime" name="newEndTime" required>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const userId = "1"; // Assuming user ID is 1 for demonstration purposes
+    const bookingsContainer = document.getElementById('bookings');
+    const rescheduleModal = document.getElementById('rescheduleModal');
+    const closeModal = document.querySelector('.close');
+    const rescheduleForm = document.getElementById('rescheduleForm');
+    let currentBookingId = null;
+
+    // Fetch user data from JSON Server
+    async function fetchUserData(userId) {
+        const response = await fetch(`http://localhost:3000/users/${userId}`);
+        const user = await response.json();
+        return user;
+    }
+
+    // Display bookings
+    function displayBookings(bookings) {
+        bookingsContainer.innerHTML = '';
+        bookings.forEach(booking => {
+            const bookingDiv = document.createElement('div');
+            bookingDiv.className = 'booking';
+            bookingDiv.innerHTML = `
+                <div class="booking-details">
+                    <p><strong>Summary:</strong> ${booking.summary}</p>
+                    <p><strong>Start Time:</strong> ${new Date(booking.startTime).toLocaleString()}</p>
+                    <p><strong>End Time:</strong> ${new Date(booking.endTime).toLocaleString()}</p>
+                    <p><strong>Status:</strong> ${booking.status}</p>
+                    <a href="${booking.link}" target="_blank">View in Calendar</a>
+                </div>
+                <div>
+                    <button class="rescheduleBtn" data-id="${booking.id}">Reschedule</button>
+                    <button class="deleteBtn" data-id="${booking.id}">Delete</button>
+                </div>
+            `;
+            bookingsContainer.appendChild(bookingDiv);
+        });
+
+        document.querySelectorAll('.rescheduleBtn').forEach(button => {
+            button.addEventListener('click', openRescheduleModal);
+        });
+
+        document.querySelectorAll('.deleteBtn').forEach(button => {
+            button.addEventListener('click', deleteBooking);
+        });
+    }
+
+    // Open reschedule modal
+    function openRescheduleModal(event) {
+        currentBookingId = event.target.getAttribute('data-id');
+        rescheduleModal.style.display = 'block';
+    }
+
+    // Close reschedule modal
+    closeModal.onclick = () => {
+        rescheduleModal.style.display = 'none';
+    };
+
+    window.onclick = event => {
+        if (event.target === rescheduleModal) {
+            rescheduleModal.style.display = 'none';
+        }
+    };
+
+    // Reschedule booking
+    rescheduleForm.onsubmit = async (event) => {
+        event.preventDefault();
+        const newStartTime = document.getElementById('newStartTime').value;
+        const newEndTime = document.getElementById('newEndTime').value;
+
+        await fetch(`http://localhost:3000/users/${userId}/meetingDetails/${currentBookingId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                startTime: newStartTime,
+                endTime: newEndTime
+            })
+        });
+
+        rescheduleModal.style.display = 'none';
+        loadBookings();
+    };
+
+    // Delete booking
+    async function deleteBooking(event) {
+        const bookingId = event.target.getAttribute('data-id');
+        await fetch(`http://localhost:3000/users/${userId}/meetingDetails/${bookingId}`, {
+            method: 'DELETE'
+        });
+        loadBookings();
+    }
+
+    // Load bookings
+    async function loadBookings() {
+        const user = await fetchUserData(userId);
+        displayBookings(user.meetingDetails);
+    }
+
+    loadBookings();
+});
+
+    </script>
 </body>
 </html>
