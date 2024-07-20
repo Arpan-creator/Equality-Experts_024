@@ -1,5 +1,55 @@
 
+// ---------------------navber scction{
 
+
+    let logo=document.querySelector(".logo")
+    let signup=document.querySelector("#signup")
+    let login=document.querySelector("#login")
+    let navber=document.querySelector(".navber")
+    let menuopen=document.querySelector("#menuopen")
+    let menuclose=document.querySelector("#menuclose")
+    menuopen.addEventListener("click",()=>{
+        console.log("yes")
+        navber.style.transform="translatex(0%)"
+        menuopen.style.display="none"
+        menuclose.style.display="block"
+        
+    })
+    menuclose.addEventListener("click",()=>{
+        console.log("yes")
+        navber.style.transform="translatex(100%)"
+        menuopen.style.display="block"
+        menuclose.style.display="none"
+        
+    })
+
+    signup.addEventListener("click" , ()=>{
+
+window.location.href = "./pages/signup.html"
+})
+
+login.addEventListener("click" , ()=>{
+window.location.href = "./pages/login.html"
+})
+logo.addEventListener("click",()=>{
+    window.location.href=window.location.href
+})
+
+
+
+
+
+
+
+
+
+
+// -----------------------------------}
+
+
+
+
+//------------ feedback portion{
 let prev_btn=document.querySelector("#prev_btn")
 let next_btn=document.querySelector("#next_btn")
 let feedbackinnercard1=document.querySelector("#feedbackinnercard1")
@@ -75,51 +125,53 @@ const previouscard=()=>{
 
 prev_btn.addEventListener("click",previouscard)
 next_btn.addEventListener("click",nextcard)
-document.addEventListener("DOMContentLoaded", function () {
-    const mobileMenu = document.getElementById("mobile-menu");
-    const navLinks = document.querySelector(".nav-links");
-
-    mobileMenu.addEventListener("click", function () {
-        navLinks.classList.toggle("active");
-    });
-
-    //  calendar and form submission logic...
-});
-
-//login -signup logic 
-
-import { fetchData } from "./utils/fetchData.js";
-// let container = document.getElementById("container")
-let signup = document.getElementById("signup-btn")
-let login = document.getElementById("login-btn")
-let loggedUser = document.getElementById("loggedUsername")
-let isLogged = JSON.parse(localStorage.getItem("isLogged")) || false
-
-const showData = async (URL)=>{
-    let dataArr = await fetchData(URL)
+//}-----------------------------------
 
 
-    if(isLogged){
-       loggedUser.innerHTML = isLogged.username
-       login.innerHTML = "Log out"
-       signup.style.display='none';
-       login.addEventListener("click" , ()=>{
-         localStorage.removeItem('isLogged')
-       })
-    }
+// ----------footersection---------{
+
+
+
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     const mobileMenu = document.getElementById("mobile-menu");
+//     const navLinks = document.querySelector(".nav-links");
+
+//     mobileMenu.addEventListener("click", function () {
+//         navLinks.classList.toggle("active");
+//     });
+
+//     //  calendar and form submission logic...
+// });
+
+// //login -signup logic 
+
+// import { fetchData } from "./utils/fetchData.js";
+// // let container = document.getElementById("container")
+
+// let loggedUser = document.getElementById("loggedUsername")
+// let isLogged = JSON.parse(localStorage.getItem("isLogged")) || false
+
+// const showData = async (URL)=>{
+//     let dataArr = await fetchData(URL)
+
+
+//     if(isLogged){
+//        loggedUser.innerHTML = isLogged.username
+//        login.innerHTML = "Log out"
+//        signup.style.display='none';
+//        login.addEventListener("click" , ()=>{
+//          localStorage.removeItem('isLogged')
+//        })
+//     }
 
     
-}
+// }
 
 
-showData('http://localhost:3000/users')
-showData('http://localhost:3000/admin')
+// showData('http://localhost:3000/users')
+// showData('http://localhost:3000/admin')
 
-signup.addEventListener("click" , ()=>{
-    window.location.href = "./pages/signup.html"
-})
 
-login.addEventListener("click" , ()=>{
-    window.location.href = "./pages/login.html"
-})
 
