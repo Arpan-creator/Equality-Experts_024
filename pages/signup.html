@@ -218,7 +218,7 @@
            meetingDetails: []
        }
 
-       fetch(`http://localhost:3000/users`)
+       fetch(`https://mock-api-server-ls06.onrender.com/users`)
        .then((res)=>res.json())
        .then((res)=>{
         let narr = res.filter((ele)=>{
@@ -226,7 +226,7 @@
         })
 
         if(narr.length == 0 ){
-            fetch(`http://localhost:3000/users` , {
+            fetch(`https://mock-api-server-ls06.onrender.com/users` , {
                 method : "POST" , 
                 headers : {
                     "Content-type" : "application/json"
