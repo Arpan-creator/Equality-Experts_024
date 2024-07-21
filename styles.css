@@ -143,7 +143,7 @@ header>img{
 @import url('http://fonts.cdnfonts.com/css/gilroy-bold');
 
 #section_1{
-    margin: 100px auto;
+    margin: 200px auto;
     font-family: sans-serif;
     max-width: 1520px;
    
@@ -187,7 +187,7 @@ header>img{
 }
 @media(width<=840px){
     #section1container{
-        flex-direction: column
+        flex-direction: column;
     }
     #leftside{
         width: 100%;
@@ -198,83 +198,72 @@ header>img{
 }
 
 
-/* ---------------------------section 3 start here------------------------------ */
+/* ---------------------------section 2 start here------------------------------ */
 
 @import url('http://fonts.cdnfonts.com/css/gilroy-bold');
+#section_2{
+    margin: 200px auto;
+    font-family: sans-serif;
+    max-width: 1520px;
+   
+}
 
-
-
-
-#section_8{
-    width: 100%;
-    height: auto;
-    margin-top: 100px;
-    max-width: 1480px;
-    border: 1px solid transparent;
+#section1container2{
+    width: 90%;
+    display: flex;
+    
     margin: auto;
+    
+
+}
+#leftside2{
   
-}
-#cont8{
-    width: 95%;
-    height: auto;
-    margin: auto;
-    border: 1px solid transparent;
-    display: grid;
-    grid-template-columns: 40% 50%;
-    grid-template-rows: auto;
-    gap: 5%;
-    padding: 72px 24px;
-}
-#sec-div-8{
-    border: 1px solid transparent;
-}
-#cal8{
-    font-weight: bold;
-    color: #006bff;
-    font-family:'Gilroy-Bold';  
-    margin: 0px 0px 32px;
-    font-size: 16px;
-    /* font-family:16px Gilroy, -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; */
-    /* font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
-}
-#take8{
-    font-weight: bold;
-    color: #0b3558;
-    margin: 0px 0px 32px;
-
-    font-size: 52px;
-    font-family:'Gilroy-Heavy'
-    /* font-family:100px Gilroy, -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; */
+    width: 40%;
+    padding: 30px 20px;
 
 }
-#spn8{
-    color: #006bff;
-}
-
-#calTag8{
- 
-    color: #476788;
-    margin: 0px 0px 32px;
-
+#leftside2>h3{
+    color: rgb(7, 74, 207);
     font-size: 20px;
-    font-family: 'Gilroy-Medium', sans-serif;
+    margin-bottom: 20px;
+
+}
+#leftside2>h1{
+    font-size: 65px;
+    margin-bottom: 20px;
+    font-family: Gilroy-Heavy;
+}
+#leftside2>p{
+    font-size: 26px;
+}
+
+#rightside2{
+   
+    width: 60%;
+    padding: 0px 20px;
+}
+#rightside2>img{
+    width: 100%;
+    height: 100%
+}
+@media(width<=1024px){
+    #section1container2{
+        width: 100%;
+    }
+}
+@media(width<=840px){
+    #section1container2{
+        flex-direction: column;
+    }
+    #leftside2{
+        width: 100%;
+    }
+    #rightside2{
+        width: 100%;
+    }
 }
 
 
-
-#sec-div-8{
-    border: 1px solid transparent;
-}
-#start8{
-    border: 0px;
-    background-color: #006BFF;
-    color: white;
-    margin: 8px 0px;
-    padding: 10px 18px;
-    font-family:'Gilroy-Bold';
-    font-size:18px;
-    border-radius: 7px;
-}
 
 
 /* ---------------------------------connected app section-------------------- */
