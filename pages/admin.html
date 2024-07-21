@@ -4,11 +4,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Google Calendar Integration</title>
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-
     <style>
+        header>nav>ul>li>button {
+            padding: 2px 5px;
+            margin: auto;
+        }
+
+        /* body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        } */
+
+        /* #login_button {
+            margin-bottom: 20px;
+        } */
+
+        #logout_button {
+            display: none;
+            /* margin-bottom: 20px; */
+        }
+
+        #calendarEvents {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .event-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 8px;
+            width: 250px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-card h3 {
+            margin-top: 0;
+        }
+
+        .event-card a {
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #eventModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #eventModalContent {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            cursor: pointer;
+            float: right;
+            font-size: 1.5em;
+        }
+
+        .share-button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .share-button:hover {
+            background-color: #0056b3;
+        }
+
+
         form {
+
             input,
             select,
             option,
@@ -17,199 +104,491 @@
                 border-radius: 10px;
                 font-weight: bold;
                 color: rgba(0, 0, 0, 0.67);
-                background: linear-gradient(rgba(32, 140, 217, 0.282), rgb(255, 255, 255));
             }
         }
+
+
+        body {
+            margin-top: 150px !important;
+        }
+
+        form {
+            background: linear-gradient(rgb(255, 255, 255), rgba(32, 118, 217, 0.075), rgba(32, 124, 217, 0.251));
+            /* background-color: lightblue; */
+            padding: 6% 5%;
+            border-radius: 15px;
+        }
+
+        /* .card { */
+            /* text-transform: capitalize !important;
+button{
+    background-color: rgb(26, 72, 199);
+}
+        } */
 
         button {
             padding: 10px;
         }
 
-        .meeting {
-            border: 1px solid rgba(39, 71, 105, 0.325);
-            width: 250px;
-            padding: 10% 5%;
-        }
-
-        .adminContainer {
-            display: flex;
-            flex-wrap: wrap;
-            width: 80%;
-            margin: auto;
-            justify-content: space-evenly;
-            gap: 50px;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .meeting {
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-            border-radius: 10px;
-        
-        }
-
-        button {
-            border-radius: 10px;
-            background-color: rgba(82, 167, 252, 0.318);
+        h2 {
+            font-family: 'Gilroy-Heavy'
         }
     </style>
 </head>
 
-<body>
-    <form action="" class="adminForm d-flex justify-content-center gap-5 my-5 flex-wrap">
-        <input required type="datetime-local" id="selectDate" class="p-3">
+<body class="container">
+  
 
-        <select required id="timeZone" class="p-3">
-            <option value="UTC">UTC</option>
-            <option value="EST">EST</option>
-            <option value="BST">BST</option>
-            <option value="IST">IST</option>
-        </select>
+    <header>
+        <img src="../image/Nav-image/navber_logo.png" alt="logo" class="logo">
+    <div class="navber">
+        <ul class="navber_list">
+            <!-- <li><a id="home">Home</a></li>
+            <li><a id="slotsPage">Slots Availability</a></li>
 
-        <select required name="" id="duration" class="p-3">
-            <option value="">Select Duration</option>
-            <option value="minTime">15 min</option>
-            <option value="maxTime">30 min</option>
-        </select>
-        <button class="p-3 px-5" type="submit">Submit</button>
-    </form>
+            <li>
+            </li> -->
 
-    <h2 class="text-center py-5">Your Available Slots</h2>
-    <div class="adminContainer">
+        </ul>
+    </div>
+    <div id="flexgrow">
+ 
+    </div>
+    <div id="button">
+        <button id="home">Home</button>
+   
+            <button id="login_button" onclick="handleAuthClick()">Login with Google</button>
+            <button id="logout_button" onclick="handleSignOut()">Log Out</button> 
+        <div id="admin">
+            <img style="border-radius: 50%;height: 40px; cursor: pointer; " src="../Equality-Experts_024/image/Nav-image/5315311-middle.png" alt="">
+           
+        </div>
+    </div>
+    <!-- <div class="menusection">
+        
+        <img src="../image/Nav-image/white menu.svg" alt="" id="menuopen">
+        <img src="../image/Nav-image/white cancel.svg" alt="" id="menuclose">
+    </div> -->
+
+    
+</header>
+    <div id="eventForm" class="container mx-auto ">
+        <h2 class="text-center">Create New Event</h2>
+        <form id="createEventForm" class="d-flex justify-content-center gap-5 my-5 flex-wrap">
+            <p>
+
+                <label for="eventSummary">Summary:</label>
+
+                <input type="text" id="eventSummary" required>
+            </p>
+            <p>
+                <label for="eventLocation">Location:</label>
+
+                <input type="text" id="eventLocation">
+            </p>
+
+            <p>
+
+                <label for="eventStart">Start Time:</label>
+                <input type="datetime-local" id="eventStart" required>
+            </p>
+            <p>
+                <label for="eventEnd">End Time:</label>
+                <input type="datetime-local" id="eventEnd" required>
+            </p>
+            <p>
+
+                <label for="notificationMethod">Notification Method:</label>
+                <!-- <br> -->
+                <select id="notificationMethod">
+                    <option value="popup">Popup</option>
+                    <option value="email">Email</option>
+                </select>
+            </p>
+            <p>
+
+                <label for="notificationMinutes">Minutes before:</label>
+                <!-- <br> -->
+                <input type="number" id="notificationMinutes" value="10" min="1" required>
+            </p>
+            <br>
+            <button type="submit">Create Event</button>
+        </form>
     </div>
 
-</body>
-<script src="https://apis.google.com/js/api.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+    <div id="calendarEvents" class="mx-auto container d-flex justify-content-evenly gap-3 flex-wrap  "></div>
 
-<script type="module">
-    let fetchURL = `http://localhost:3000/admin`;
+    <div id="eventModal">
+        <div id="eventModalContent">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Event Details</h2>
+            <p id="eventSummaryDetail"></p>
+            <p id="eventLocationDetail"></p>
+            <p id="eventStartDetail"></p>
+            <p id="eventEndDetail"></p>
+            <a id="eventInviteLink" href="#" target="_blank">Open Event in Google Calendar</a>
+            <button class="share-button" onclick="shareEventLink()">Share Event Link</button>
+            <input type="hidden" id="eventId">
+            <button id="deleteEventButton">Delete Event</button>
+        </div>
+    </div>
 
-    let fetchData = async (url) => {
-        let fetchdata = await fetch(url);
-        let data = await fetchdata.json();
-        return data;
-    };
+    <script>
+     let home = document.querySelector("#home")
+        home.addEventListener("click", () => {
+            // localStorage.removeItem("loggedUser")
+            window.location.href = "../index.html"
+        })
 
-    let adminData = await fetchData(fetchURL);
-    const urlParams = new URLSearchParams(window.location.search);
-    let userId = urlParams.get('userId');
-    let baseURL = `http://localhost:3000/admin/${userId}`;
-    let curradmin = await fetchData(baseURL);
 
-    let loggedUser = JSON.parse(localStorage.getItem("logged")) || false;
 
-    let minTime = 15;
-    let maxTime = 30;
-    let adminForm = document.querySelector(".adminForm");
+        const CLIENT_ID = '47711487762-mmrmlikaeeiuuv01bsuqr55lkopgkpl1.apps.googleusercontent.com';
+        const API_KEY = 'AIzaSyDqnubOk-lMpKyn6fNO1-Qc4B-ca3bYRmc';
+        const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+        const SCOPES = "https://www.googleapis.com/auth/calendar.events";
+        const REDIRECT_URI = 'http://127.0.0.1:8080'; // Your redirect URI
 
-    // Disable past dates
-    let selectDate = document.getElementById('selectDate');
-    let now = new Date();
-    let nowISO = now.toISOString().slice(0, 16);
-    selectDate.min = nowISO;
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
 
-    let setAdminAvail = async (event) => {
-        event.preventDefault();
-
-        let selectedDateTime = new Date(event.target[0].value).getTime();
-        let currentDateTime = new Date().getTime();
-
-        if (selectedDateTime < currentDateTime) {
-            alert("Please select a date and time that is not in the past.");
-            return;
+        function gapiLoaded() {
+            gapi.load('client', initializeGapiClient);
         }
 
-        let timeZone = event.target[1].value;
-        let durationSelect = event.target[2].value;
-
-
-        // Convert the selected date and time to the chosen time zone
-        let slot = event.target[0].value;
-        let date = moment.tz(slot, timeZone);
-        let formattedSlot = date.format('DD/MM/YYYY HH:mm') + ' ' + timeZone;
-
-        let user = adminData.find(admin => admin.id === userId);
-        let { meetingDetails } = user;
-
-        let selectedTime = durationSelect;
-        let duration = selectedTime === "maxTime" ? maxTime : minTime;
-
-        // Check if the selected slot is already booked for the entire day
-        let isSlotBooked = meetingDetails.some(meeting => {
-            let meetingDate = moment(meeting.slot, 'DD/MM/YYYY HH:mm Z').format('YYYY-MM-DD');
-            let selectedDate = date.format('YYYY-MM-DD');
-            return meetingDate === selectedDate && meeting.slot === formattedSlot;
-        });
-
-        if (isSlotBooked) {
-            alert("The selected time slot is already booked. Please choose another time.");
-            return;
+        async function initializeGapiClient() {
+            await gapi.client.init({
+                apiKey: API_KEY,
+                discoveryDocs: DISCOVERY_DOCS,
+            });
+            gapiInited = true;
+            maybeEnableButtons();
         }
 
-        let id = Math.random().toString();
-        let newMeeting = { id, slot: formattedSlot, duration, status: "active", meetingLink: "" };
-        let updatedMeetingDetails = [newMeeting, ...meetingDetails];
+        function gisLoaded() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+                redirect_uri: REDIRECT_URI,
+                callback: handleAuthCallback,
+            });
+            gisInited = true;
+            maybeEnableButtons();
+        }
 
-        await fetch(baseURL, {
-            method: "PATCH",
-            headers: {
-                "content-type": 'application/json'
-            },
-            body: JSON.stringify({ meetingDetails: updatedMeetingDetails })
-        });
+        function maybeEnableButtons() {
+            if (gapiInited && gisInited) {
+                document.getElementById('login_button').style.visibility = 'visible';
+            }
+        }
 
-        alert("Meeting added successfully");
-        showdata({ meetingDetails: updatedMeetingDetails });
-    };
+        function handleAuthClick() {
+            tokenClient.requestAccessToken({ prompt: 'consent' });
+        }
 
-    adminForm.addEventListener("submit", setAdminAvail);
+        function handleAuthCallback(response) {
+            if (response.error) {
+                console.error('Error during authentication:', response.error);
+                alert('Authentication failed. Check the console for details.');
+                return;
+            }
+            document.getElementById('login_button').style.display = 'none';
+            document.getElementById('logout_button').style.display = 'inline-block';
+            listUpcomingEvents();
+        }
 
-    let adminContainer = document.querySelector(".adminContainer");
-
-    let showdata = async (ele) => {
-        adminContainer.innerHTML = "";
-
-        // Sort meeting details by date
-        ele.meetingDetails.sort((a, b) => {
-            let dateA = moment(a.slot, 'DD/MM/YYYY HH:mm Z');
-            let dateB = moment(b.slot, 'DD/MM/YYYY HH:mm Z');
-            return dateA - dateB;
-        });
-
-        ele.meetingDetails.forEach(meeting => {
-            let card = document.createElement("div");
-            let meetingElement = document.createElement('div');
-            meetingElement.classList.add('meeting');
-            meetingElement.innerHTML = `
-                <p><strong>Slot:</strong> ${meeting.slot}</p>
-                <p><strong>Duration:</strong> ${meeting.duration} min</p>
-                <p><strong>Status:</strong> ${meeting.status}</p>
-            `;
-            let deleteBtn = document.createElement("button");
-            deleteBtn.innerHTML = "Delete";
-            deleteBtn.classList.add("px-5");
-
-            deleteBtn.addEventListener("click", async () => {
-                let updatedMeetingDetails = ele.meetingDetails.filter(m => m.id !== meeting.id);
-                await fetch(baseURL, {
-                    method: "PATCH",
-                    headers: {
-                        "content-type": 'application/json'
-                    },
-                    body: JSON.stringify({ meetingDetails: updatedMeetingDetails })
+        async function listUpcomingEvents() {
+            let response;
+            try {
+                response = await gapi.client.calendar.events.list({
+                    'calendarId': 'primary',
+                    'timeMin': (new Date()).toISOString(),
+                    'showDeleted': false,
+                    'singleEvents': true,
+                    'maxResults': 10,
+                    'orderBy': 'startTime'
                 });
-                showdata({ meetingDetails: updatedMeetingDetails });
+            } catch (err) {
+                document.getElementById('calendarEvents').innerText = `Error: ${err.message}`;
+                return;
+            }
+
+            const events = response.result.items;
+            const eventsDiv = document.getElementById('calendarEvents');
+            eventsDiv.innerHTML = '';
+
+            if (events.length > 0) {
+                console.log(events)
+                events.forEach(event => {
+
+                    const eventCard = document.createElement('div');
+                    eventCard.className = 'event-card';
+                    eventCard.classList.add = 'card';
+
+                    const start = new Date(event.start.dateTime || event.start.date).toLocaleString();
+                    const end = new Date(event.end.dateTime || event.end.date).toLocaleString();
+
+                    eventCard.innerHTML = `
+                        <h3>${event.summary}</h3>
+                        <p><strong>Location:</strong> ${event.location || 'N/A'}</p>
+                        <p><strong>Start:</strong> ${start}</p>
+                        <p><strong>End:</strong> ${end}</p>
+                        <a href="${event.htmlLink}" target="_blank">Open Event in Google Calendar</a>
+                        <button onclick="viewEventDetails('${event.id}')">View Details</button>
+                    `;
+                    eventsDiv.appendChild(eventCard);
+
+                });
+
+                await storeEventsToJsonServer(events);
+
+            } else {
+                eventsDiv.innerHTML = '<p>No upcoming events found.</p>';
+            }
+            // console.log(data)
+
+        }
+
+
+
+        async function storeEventsToJsonServer(events) {
+            try {
+                // Fetch existing data from the server
+                const response = await fetch('http://localhost:3000/events');
+                let dbData = await response.json();
+
+                // Initialize dbData.events as an empty array if it's undefined
+                if (!dbData.events) {
+                    dbData.events = [];
+                }
+
+                // Find existing record index or create a new one
+                let userIndex = dbData.events.findIndex(user => user.id === events[0]?.creator?.email);
+
+                if (userIndex === -1) {
+                    // User not found, create a new record
+                    dbData.events.push({
+                        id: events[0].creator.email,
+                        meetingDetails: events.map(event => ({
+                            id: generateUniqueId(),
+                            startTime: new Date(event.start.dateTime).toISOString(),
+                            endTime: new Date(event.end.dateTime).toISOString(),
+                            summary: event.summary,
+                            link: event.htmlLink,
+                            status: "available"
+                        }))
+                    });
+                } else {
+                    // User found, update or add new events to the user's meetingDetails
+                    let updated = false;
+
+                    events.forEach(event => {
+                        let existingEventIndex = dbData.events[userIndex].meetingDetails.findIndex(
+                            e => e.id === event.id
+                        );
+
+                        if (existingEventIndex !== -1) {
+                            // Update existing event
+                            dbData.events[userIndex].meetingDetails[existingEventIndex] = {
+                                id: event.id,
+                                startTime: new Date(event.start.dateTime).toISOString(),
+                                endTime: new Date(event.end.dateTime).toISOString(),
+                                summary: event.summary,
+                                link: event.htmlLink,
+                                status: "available"
+                            };
+                            updated = true;
+                        } else {
+                            // Add new event
+                            dbData.events[userIndex].meetingDetails.push({
+                                id: generateUniqueId(),
+                                startTime: new Date(event.start.dateTime).toISOString(),
+                                endTime: new Date(event.end.dateTime).toISOString(),
+                                summary: event.summary,
+                                link: event.htmlLink,
+                                status: "available"
+                            });
+                            updated = true;
+                        }
+                    });
+
+                    // If events were updated, send a PATCH request to update server data
+                    if (updated) {
+                        const updateResponse = await fetch(`http://localhost:3000/events/${dbData.events[userIndex].id}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(dbData.events[userIndex])
+                        });
+
+                        if (!updateResponse.ok) {
+                            throw new Error('Failed to update event data on the server');
+                        }
+
+                        console.log('Events successfully updated on JSON server for user:', dbData.events[userIndex].id);
+                    }
+                }
+
+                // POST request to create new user data if userIndex was -1
+                if (userIndex === -1) {
+                    const createResponse = await fetch('http://localhost:3000/events', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(dbData.events[dbData.events.length - 1])
+                    });
+
+                    if (!createResponse.ok) {
+                        throw new Error('Failed to create new user data on the server');
+                    }
+
+                    console.log('New user data successfully stored on JSON server');
+                }
+            } catch (error) {
+                console.error('Error storing events to JSON server:', error);
+            }
+        }
+
+        // Example function to generate a unique ID (you may need a proper UUID library)
+        function generateUniqueId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        // Example function to generate a unique ID (you may need a proper UUID library)
+        function generateUniqueId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        async function createEvent(event) {
+            event.preventDefault();
+
+            const summary = document.getElementById('eventSummary').value;
+            const location = document.getElementById('eventLocation').value;
+            const start = document.getElementById('eventStart').value;
+            const end = document.getElementById('eventEnd').value;
+            const notificationMethod = document.getElementById('notificationMethod').value;
+            const notificationMinutes = parseInt(document.getElementById('notificationMinutes').value, 10);
+
+            const eventData = {
+                summary: summary,
+                location: location,
+                start: {
+                    dateTime: new Date(start).toISOString(),
+                    timeZone: 'America/Los_Angeles',
+                },
+                end: {
+                    dateTime: new Date(end).toISOString(),
+                    timeZone: 'America/Los_Angeles',
+                },
+                reminders: {
+                    useDefault: false,
+                    overrides: [{
+                        method: notificationMethod,
+                        minutes: notificationMinutes
+                    }]
+                }
+            };
+            try {
+                const response = await gapi.client.calendar.events.insert({
+                    'calendarId': 'primary',
+                    'resource': eventData
+                });
+                alert('Event created successfully!');
+                listUpcomingEvents(); // Refresh the event list
+            } catch (error) {
+                console.error('Error creating event:', error);
+                alert('Failed to create event. Check the console for details.');
+            }
+
+            //   console.log(eventData)
+        }
+
+        async function viewEventDetails(eventId) {
+            try {
+                const response = await gapi.client.calendar.events.get({
+                    'calendarId': 'primary',
+                    'eventId': eventId
+                });
+
+                const event = response.result;
+
+                document.getElementById('eventSummaryDetail').innerText = `Summary: ${event.summary}`;
+                document.getElementById('eventLocationDetail').innerText = `Location: ${event.location || 'N/A'}`;
+                document.getElementById('eventStartDetail').innerText = `Start: ${new Date(event.start.dateTime || event.start.date).toLocaleString()}`;
+                document.getElementById('eventEndDetail').innerText = `End: ${new Date(event.end.dateTime || event.end.date).toLocaleString()}`;
+                document.getElementById('eventInviteLink').href = event.htmlLink;
+                document.getElementById('eventId').value = event.id;
+                document.getElementById('eventModal').style.display = 'flex';
+            } catch (error) {
+                console.error('Error fetching event details:', error);
+                alert('Failed to fetch event details. Check the console for details.');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('eventModal').style.display = 'none';
+        }
+
+        function shareEventLink() {
+            const link = document.getElementById('eventInviteLink').href;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Event link copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy the link:', err);
+                alert('Failed to copy the link. Check the console for details.');
+            });
+        }
+
+        async function deleteEvent() {
+            const eventId = document.getElementById('eventId').value;
+
+            try {
+                await gapi.client.calendar.events.delete({
+                    'calendarId': 'primary',
+                    'eventId': eventId
+                });
+                alert('Event deleted successfully!');
+                listUpcomingEvents(); // Refresh the event list
+                closeModal(); // Hide the modal
+            } catch (error) {
+                console.error('Error deleting event:', error);
+                alert('Failed to delete event. Check the console for details.');
+            }
+        }
+
+        function handleSignOut() {
+            gapi.auth2.getAuthInstance().signOut().then(() => {
+                document.getElementById('login_button').style.display = 'inline-block';
+                document.getElementById('logout_button').style.display = 'none';
+                document.getElementById('calendarEvents').innerHTML = '';
+                closeModal();
+            });
+        }
+
+        let handleRedirect = () => {
+            window.location.href = "../index.html"
+        }
+
+        let logout_button = document.getElementById("logout_button")
+        logout_button.addEventListener("click", handleRedirect)
+        document.getElementById('createEventForm').addEventListener('submit', createEvent);
+        document.getElementById('deleteEventButton').addEventListener('click', deleteEvent);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const mobileMenu = document.getElementById("mobile-menu");
+            const navLinks = document.querySelector(".nav-links");
+
+            mobileMenu.addEventListener("click", function () {
+                navLinks.classList.toggle("active");
             });
 
-            meetingElement.append(deleteBtn);
-            card.append(meetingElement);
-
-            adminContainer.append(card);
+            //  calendar and form submission logic...
         });
-    };
-
-    showdata(curradmin);
-</script>
+    </script>
+    <script src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+</body>
 
 </html>

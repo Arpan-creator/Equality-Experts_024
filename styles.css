@@ -1,8 +1,8 @@
-*{
+* {
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    
+
 
 }
 body{
@@ -130,7 +130,7 @@ header>img{
     #button>button{
         font-size: 16px;
     }
-    
+
 }
 
 
@@ -382,7 +382,7 @@ header>img{
     background-color: white;
 }
 
-#slider_track > img {
+#slider_track>img {
     width: 200px;
     padding: 15px;
     transition: transform 1s;
@@ -392,7 +392,7 @@ header>img{
     animation-play-state: paused;
 }
 
-#slider_track > img:hover {
+#slider_track>img:hover {
     transform: scale(1.2);
     cursor: pointer;
 }
@@ -401,6 +401,7 @@ header>img{
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(calc(-200px * 10));
     }
@@ -435,40 +436,46 @@ header>img{
     padding: 70px 100px 70px 100px;
     border-radius: 20px;
     margin-bottom: 40px;
-   
+
 }
-#feedbackcard>h1{
+
+#feedbackcard>h1 {
     font-size: clamp(39px, 40px, 42px);
     text-align: center;
 }
-#buttoncenter{
+
+#buttoncenter {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
-#redemore_btn{
+
+#redemore_btn {
     padding: 10px 20px 10px 20px;
     font-size: 16px;
     border-radius: 10px;
     background-color: #01b947;
     color: white;
     cursor: pointer;
-    
-    
+
+
 }
-#redemore_btn:hover>i{
+
+#redemore_btn:hover>i {
     cursor: pointer;
     transform: translateX(10px);
     transition: transform 1s;
 }
-#button_div{
-    
+
+#button_div {
+
     display: flex;
     justify-content: end;
     gap: 5px;
     margin: 10px 0px 10px 0px;
 }
-#button_div>button{
+
+#button_div>button {
     cursor: pointer;
     padding: 10px;
     background-color: black;
@@ -476,37 +483,41 @@ header>img{
     border: 0px;
     border-radius: 7px;
 }
-#button_div>button:hover{
+
+#button_div>button:hover {
     background-color: #01b947;
 }
 
 
 
-#feedbackinnercard1{
+#feedbackinnercard1 {
     display: flex;
     position: relative;
     visibility: visible;
-   
-    
-    
+
+
+
 }
-#feedbackinnercard2{
+
+#feedbackinnercard2 {
     display: flex;
     position: absolute;
     visibility: hidden;
      
 }
-#feedbackinnercard3{
+
+#feedbackinnercard3 {
     display: flex;
     position: absolute;
     visibility: hidden;
-    
-    
-    
-    
+
+
+
+
 }
-.feedback_pic_div{
-    
+
+.feedback_pic_div {
+
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -514,11 +525,12 @@ header>img{
     align-items: center;
 }
 
-.feedback_pic_div>img{
+.feedback_pic_div>img {
     width: 170px;
     border-radius: 20px;
 }
-.feedback_text{
+
+.feedback_text {
     width: 60%;
     /* min-height: 400px; */
     /* border: 1px solid; */
@@ -528,52 +540,63 @@ header>img{
     align-items: center;
     padding: 40px;
 }
-.feedback_pic_div>.name{
+
+.feedback_pic_div>.name {
     color: #7457d7;
     font-size: 24px;
     margin-top: 20px;
     margin-bottom: 10px;
 }
-.feedback_pic_div>.details{
+
+.feedback_pic_div>.details {
     font-size: 20px;
-    
+
 }
 
-@media (width<=1300px){
-    #feedbackcard{
+@media (width<=1300px) {
+    #feedbackcard {
         width: 95%;
 
     }
-    .feedback_text{
+
+    .feedback_text {
         font-size: 26px;
     }
 }
-@media (width<=768px){
-    #feedbackcard{
+
+@media (width<=768px) {
+    #feedbackcard {
         padding: 70px 50px 70px 50px;
     }
-    #feedbackinnercard1{
+
+    #feedbackinnercard1 {
         flex-direction: column;
     }
-    #feedbackinnercard2{
+
+    #feedbackinnercard2 {
         flex-direction: column;
     }
-    #feedbackinnercard3{
+
+    #feedbackinnercard3 {
         flex-direction: column;
     }
-    .feedback_pic_div{
+
+    .feedback_pic_div {
         width: 100%;
     }
-    .feedback_text{
+
+    .feedback_text {
         width: 100%;
         min-height: 0px;
     }
 }
-@media (width<=480px){
-    #feedbackcard{
+
+@media (width<=480px) {
+    #feedbackcard {
         padding: 70px 10px 70px 10px;
     }
-    .feedback_text{
+
+    .feedback_text {
         width: 100%;
         margin-top: 50px;
     }
@@ -722,7 +745,8 @@ footer{
     
     
 }
-#footer>div{
+
+#footer>div {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -733,7 +757,8 @@ footer{
     text-decoration:1px underline wheat;
     
 }
-#footer>div>p:hover{
+
+#footer>div>p:hover {
     cursor: pointer;
     transform: translateX(7px);
     transition: transform 0.5s;
@@ -802,7 +827,8 @@ footer{
         
         padding-left: 30px;
     }
-    #footer>div:nth-of-type(1){
+
+    #footer>div:nth-of-type(1) {
         padding-top: 0px;
     }
     #footer>div:nth-of-type(2){
