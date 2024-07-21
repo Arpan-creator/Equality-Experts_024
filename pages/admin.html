@@ -13,18 +13,17 @@
             margin: auto;
         }
 
-        /* body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        } */
+        .newevent {
+            background-color: rgb(55, 171, 55);
+            font-size: 16px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
 
-        /* #login_button {
-            margin-bottom: 20px;
-        } */
+        }
 
         #logout_button {
             display: none;
-            /* margin-bottom: 20px; */
         }
 
         #calendarEvents {
@@ -100,31 +99,38 @@
             select,
             option,
             button {
-                border: 2px solid black;
+                border: 1px solid rgba(0, 0, 0, 0.2);
                 border-radius: 10px;
-                font-weight: bold;
-                color: rgba(0, 0, 0, 0.67);
+                /* font-weight: bold; */
+                /* color: rgba(0, 0, 0, 0.67); */
             }
         }
 
+        form {
+            width: max-content;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 8px;
+            margin-top: 30px;
+            /* position: fixed; */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
         body {
-            margin-top: 150px !important;
+            margin-top: 100px !important;
         }
 
         form {
-            background: linear-gradient(rgb(255, 255, 255), rgba(32, 118, 217, 0.075), rgba(32, 124, 217, 0.251));
-            /* background-color: lightblue; */
-            padding: 6% 5%;
             border-radius: 15px;
+
+            input,
+            select,
+            option {
+                padding: 5px;
+            }
         }
 
-        /* .card { */
-            /* text-transform: capitalize !important;
-button{
-    background-color: rgb(26, 72, 199);
-}
-        } */
 
         button {
             padding: 10px;
@@ -133,90 +139,157 @@ button{
         h2 {
             font-family: 'Gilroy-Heavy'
         }
+
+        body {
+            overflow-y: hidden;
+        }
+
+        .slotContainer {
+            overflow-y: auto;
+            /* Enable scrolling */
+            max-height: calc(100vh - 120px);
+            /* Adjust based on your layout */
+            padding: 20px;
+            background-color: white;
+
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 5%;
+        }
+
+        #eventForm,
+        form {
+            position: relative;
+            overflow-y: hidden;
+        }
+
+
+        .event-card {
+            background-color: white;
+            flex: 0 0 300px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+            transition: transform 0.3s ease;
+            text-transform: capitalize;
+margin-top: 0;
+            border-top: solid 10px rgba(37, 92, 221, 0.826);
+
+        }
+
+        .event-card button {
+            background-color: #2175cf;
+
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .event-card p {
+            font-weight: 300;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            /* Hover effect */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+
+        }
     </style>
 </head>
 
-<body class="container">
-  
+<body>
+
 
     <header>
         <img src="../image/Nav-image/navber_logo.png" alt="logo" class="logo">
-    <div class="navber">
-        <ul class="navber_list">
-            <!-- <li><a id="home">Home</a></li>
+        <div class="navber">
+            <ul class="navber_list">
+                <!-- <li><a id="home">Home</a></li>
             <li><a id="slotsPage">Slots Availability</a></li>
 
             <li>
             </li> -->
 
-        </ul>
-    </div>
-    <div id="flexgrow">
- 
-    </div>
-    <div id="button">
-        <button id="home">Home</button>
-   
-            <button id="login_button" onclick="handleAuthClick()">Login with Google</button>
-            <button id="logout_button" onclick="handleSignOut()">Log Out</button> 
-        <div id="admin">
-            <img style="border-radius: 50%;height: 40px; cursor: pointer; " src="../Equality-Experts_024/image/Nav-image/5315311-middle.png" alt="">
-           
+            </ul>
         </div>
-    </div>
-    <!-- <div class="menusection">
+        <div id="flexgrow">
+
+        </div>
+        <div id="button">
+            <button id="home">Home</button>
+
+            <button id="login_button" onclick="handleAuthClick()">Login with Google</button>
+            <button id="logout_button" onclick="handleSignOut()">Log Out</button>
+            <div id="admin">
+                <img style="border-radius: 50%;height: 40px; cursor: pointer; "
+                    src="../Equality-Experts_024/image/Nav-image/5315311-middle.png" alt="">
+
+            </div>
+        </div>
+        <!-- <div class="menusection">
         
         <img src="../image/Nav-image/white menu.svg" alt="" id="menuopen">
         <img src="../image/Nav-image/white cancel.svg" alt="" id="menuclose">
     </div> -->
 
-    
-</header>
-    <div id="eventForm" class="container mx-auto ">
-        <h2 class="text-center">Create New Event</h2>
-        <form id="createEventForm" class="d-flex justify-content-center gap-5 my-5 flex-wrap">
-            <p>
 
-                <label for="eventSummary">Summary:</label>
+    </header>
+    <div class="grid container">
 
-                <input type="text" id="eventSummary" required>
-            </p>
-            <p>
-                <label for="eventLocation">Location:</label>
+        <div id="eventForm" class=" mx-auto ">
+            <form id="createEventForm" class="">
+                <h2 class="text-center mb-4">Create New Event</h2>
+                <p class="d-flex justify-content-between">
 
-                <input type="text" id="eventLocation">
-            </p>
+                    <label for="eventSummary">Summary:</label>
 
-            <p>
+                    <input type="text" id="eventSummary" required>
+                </p>
+                <p class="d-flex justify-content-between">
+                    <label for="eventLocation">Location:</label>
 
-                <label for="eventStart">Start Time:</label>
-                <input type="datetime-local" id="eventStart" required>
-            </p>
-            <p>
-                <label for="eventEnd">End Time:</label>
-                <input type="datetime-local" id="eventEnd" required>
-            </p>
-            <p>
+                    <input type="text" id="eventLocation">
+                </p>
 
-                <label for="notificationMethod">Notification Method:</label>
-                <!-- <br> -->
-                <select id="notificationMethod">
-                    <option value="popup">Popup</option>
-                    <option value="email">Email</option>
-                </select>
-            </p>
-            <p>
+                <p class="d-flex justify-content-between">
 
-                <label for="notificationMinutes">Minutes before:</label>
-                <!-- <br> -->
-                <input type="number" id="notificationMinutes" value="10" min="1" required>
-            </p>
-            <br>
-            <button type="submit">Create Event</button>
-        </form>
+                    <label for="eventStart">Start Time:</label>
+                    <input type="datetime-local" id="eventStart" required>
+                </p>
+                <p class="d-flex justify-content-between">
+                    <label for="eventEnd">End Time:</label>
+                    <input type="datetime-local" id="eventEnd" required>
+                </p>
+                <p class="d-flex justify-content-between">
+
+                    <label for="notificationMethod">Notification Method:</label>
+                    <!-- <br> -->
+                    <select id="notificationMethod">
+                        <option value="popup">Popup</option>
+                        <option value="email">Email</option>
+                    </select>
+                </p>
+                <p class="d-flex justify-content-between">
+
+                    <label for="notificationMinutes">Minutes before:</label>
+                    <!-- <br> -->
+                    <input type="number" id="notificationMinutes" value="10" min="1" required>
+                </p>
+                <br>
+                <button class="newevent" type="submit">Create Event</button>
+            </form>
+        </div>
+
+        <div id="calendarEvents" class="mx-auto  d-flex justify-content-evenly gap-3 flex-wrap  slotContainer"></div>
     </div>
-
-    <div id="calendarEvents" class="mx-auto container d-flex justify-content-evenly gap-3 flex-wrap  "></div>
 
     <div id="eventModal">
         <div id="eventModalContent">
@@ -234,7 +307,7 @@ button{
     </div>
 
     <script>
-     let home = document.querySelector("#home")
+        let home = document.querySelector("#home")
         home.addEventListener("click", () => {
             // localStorage.removeItem("loggedUser")
             window.location.href = "../index.html"
@@ -323,7 +396,7 @@ button{
 
                     const eventCard = document.createElement('div');
                     eventCard.className = 'event-card';
-                    eventCard.classList.add = 'card';
+                    eventCard.classList.add = 'cards';
 
                     const start = new Date(event.start.dateTime || event.start.date).toLocaleString();
                     const end = new Date(event.end.dateTime || event.end.date).toLocaleString();

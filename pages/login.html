@@ -188,7 +188,8 @@
        let email = email_input.value
        let userpass = password_input.value
     
-      fetch("http://localhost:3000/users")
+    //   fetch("http://localhost:3000/users")
+        fetch("https://mock-api-server-ls06.onrender.com/users")
       .then((res)=>res.json())
       .then((res)=>{
           let narr = res.filter((ele)=>{
