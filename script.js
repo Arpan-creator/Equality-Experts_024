@@ -37,7 +37,9 @@ logo.addEventListener("click",()=>{
 
 
 
-
+document.getElementById('admin').addEventListener('click', function() {
+    window.location.href = './pages/admin.html';
+    });
 
 
 
