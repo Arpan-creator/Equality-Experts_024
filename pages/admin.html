@@ -427,7 +427,7 @@ margin-top: 0;
         async function storeEventsToJsonServer(events) {
             try {
                 // Fetch existing data from the server
-                const response = await fetch('http://localhost:3000/events');
+                const response = await fetch('https://mock-api-server-ls06.onrender.com/events');
                 let dbData = await response.json();
 
                 // Initialize dbData.events as an empty array if it's undefined
@@ -487,7 +487,7 @@ margin-top: 0;
 
                     // If events were updated, send a PATCH request to update server data
                     if (updated) {
-                        const updateResponse = await fetch(`http://localhost:3000/events/${dbData.events[userIndex].id}`, {
+                        const updateResponse = await fetch(`https://mock-api-server-ls06.onrender.com/events/${dbData.events[userIndex].id}`, {
                             method: 'PATCH',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -505,7 +505,7 @@ margin-top: 0;
 
                 // POST request to create new user data if userIndex was -1
                 if (userIndex === -1) {
-                    const createResponse = await fetch('http://localhost:3000/events', {
+                    const createResponse = await fetch('hhttps://mock-api-server-ls06.onrender.com/events', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
