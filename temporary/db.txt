@@ -1,199 +1,579 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Google Calendar Integration</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <style>
+        /* General styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 0;
         }
 
         .container {
-            max-width: 800px;
-            width: 100%;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            display: flex;
         }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
+
+        /* Slot container */
+        .slot-container {
+            flex: 1;
+            overflow-y: auto;
         }
 
-        .booking-item {
+        .slot-container .event-card {
             border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 15px;
-            margin-bottom: 15px;
-            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 8px;
+            width: calc(100% - 20px);
+            /* Adjust for margin */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .booking-item h3 {
+        .slot-container .event-card h3 {
             margin-top: 0;
-            margin-bottom: 10px;
-            color: #555;
         }
 
-        .booking-item p {
-            margin: 5px 0;
-            color: #777;
+        .slot-container .event-card a {
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
         }
 
-        .booking-item button {
-            padding: 8px 15px;
-            margin-right: 10px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        .booking-item button:hover {
-            background-color: #0056b3;
-        }
-
-        .modal {
+        /* Event modal */
+        #eventModal {
             display: none;
             position: fixed;
-            z-index: 1;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
         }
 
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
+        #eventModalContent {
+            background-color: white;
             padding: 20px;
-            border: 1px solid #888;
+            border-radius: 5px;
             width: 80%;
-            max-width: 500px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
         }
 
         .close {
-            color: #aaa;
+            cursor: pointer;
             float: right;
-            font-size: 28px;
-            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        .share-button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
             cursor: pointer;
         }
 
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
+        .share-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .form-container {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
+
 <body>
+    <header>
+        <img src="../image/Nav-image/navber_logo.png" alt="logo" class="logo">
+        <div class="navber">
+            <ul class="navber_list">
+                <!-- <li><a id="home">Home</a></li>
+            <li><a id="slotsPage">Slots Availability</a></li>
+
+            <li>
+            </li> -->
+
+            </ul>
+        </div>
+        <div id="flexgrow">
+
+        </div>
+        <div id="button">
+            <button id="home">Home</button>
+
+            <button id="login_button" onclick="handleAuthClick()">Login with Google</button>
+            <button id="logout_button" onclick="handleSignOut()">Log Out</button>
+            <div id="admin">
+                <img style="border-radius: 50%;height: 40px; cursor: pointer; "
+                    src="../Equality-Experts_024/image/Nav-image/5315311-middle.png" alt="">
+
+            </div>
+        </div>
+        <!-- <div class="menusection">
+        
+        <img src="../image/Nav-image/white menu.svg" alt="" id="menuopen">
+        <img src="../image/Nav-image/white cancel.svg" alt="" id="menuclose">
+    </div> -->
+
+
+    </header>
+
     <div class="container">
-        <h1>Your Bookings</h1>
-        <div id="bookingList"></div>
+        <div class="form-container">
+            <div id="eventForm">
+                <form id="createEventForm">
+                    <h2>Create New Event</h2>
+                    <p>
+                        <label for="eventSummary">Summary:</label>
+                        <input type="text" id="eventSummary" required>
+                    </p>
+                    <p>
+                        <label for="eventLocation">Location:</label>
+                        <input type="text" id="eventLocation">
+                    </p>
+                    <p>
+                        <label for="eventStart">Start Time:</label>
+                        <input type="datetime-local" id="eventStart" required>
+                    </p>
+                    <p>
+                        <label for="eventEnd">End Time:</label>
+                        <input type="datetime-local" id="eventEnd" required>
+                    </p>
+                    <p>
+                        <label for="notificationMethod">Notification Method:</label>
+                        <select id="notificationMethod">
+                            <option value="popup">Popup</option>
+                            <option value="email">Email</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="notificationMinutes">Minutes before:</label>
+                        <input type="number" id="notificationMinutes" value="10" min="1" required>
+                    </p>
+                    <button type="submit">Create Event</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="slot-container" id="calendarEvents">
+            <!-- Slot container content (event cards) will be dynamically added -->
+        </div>
     </div>
 
+    <div id="eventModal">
+        <div id="eventModalContent">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Event Details</h2>
+            <p id="eventSummaryDetail"></p>
+            <p id="eventLocationDetail"></p>
+            <p id="eventStartDetail"></p>
+            <p id="eventEndDetail"></p>
+            <a id="eventInviteLink" href="#" target="_blank">Open Event in Google Calendar</a>
+            <button class="share-button" onclick="shareEventLink()">Share Event Link</button>
+            <input type="hidden" id="eventId">
+            <button id="deleteEventButton">Delete Event</button>
+        </div>
+    </div>
+
+
     <script>
-        let userId = '1'; // Hardcoded user id for testing
+        let home = document.querySelector("#home")
+        home.addEventListener("click", () => {
+            // localStorage.removeItem("loggedUser")
+            window.location.href = "../index.html"
+        })
 
-        async function fetchUserData(userId) {
-            const response = await fetch(`http://localhost:3000/users/${userId}`);
-            const user = await response.json();
-            return user;
+
+
+        const CLIENT_ID = '47711487762-mmrmlikaeeiuuv01bsuqr55lkopgkpl1.apps.googleusercontent.com';
+        const API_KEY = 'AIzaSyDqnubOk-lMpKyn6fNO1-Qc4B-ca3bYRmc';
+        const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+        const SCOPES = "https://www.googleapis.com/auth/calendar.events";
+        const REDIRECT_URI = 'http://127.0.0.1:8080'; // Your redirect URI
+
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
+
+        function gapiLoaded() {
+            gapi.load('client', initializeGapiClient);
         }
 
-        async function loadBookings() {
-            const user = await fetchUserData(userId);
-            displayBookings(user.meetingDetails);
-        }
-
-        function displayBookings(meetings) {
-            const bookingList = document.getElementById('bookingList');
-            bookingList.innerHTML = '';
-
-            meetings.forEach(meeting => {
-                const bookingItem = document.createElement('div');
-                bookingItem.className = 'booking-item';
-                bookingItem.innerHTML = `
-                    <h3>${meeting.summary}</h3>
-                    <p><strong>Start Time:</strong> ${meeting.startTime}</p>
-                    <p><strong>End Time:</strong> ${meeting.endTime}</p>
-                    <button data-id="${meeting.id}" onclick="deleteBooking(event)">Delete Booking</button>
-                    <button data-id="${meeting.id}" onclick="rescheduleBooking(event)">Reschedule</button>
-                `;
-                bookingList.appendChild(bookingItem);
+        async function initializeGapiClient() {
+            await gapi.client.init({
+                apiKey: API_KEY,
+                discoveryDocs: DISCOVERY_DOCS,
             });
+            gapiInited = true;
+            maybeEnableButtons();
         }
 
-        async function deleteBooking(event) {
-            const bookingId = event.target.getAttribute('data-id');
-
-            // Fetch the current user data
-            const userResponse = await fetch(`http://localhost:3000/users/${userId}`);
-            const user = await userResponse.json();
-
-            // Filter out the booking from the user's meetingDetails
-            const updatedMeetings = user.meetingDetails.filter(booking => booking.id !== bookingId);
-
-            // Update the user data with the filtered meetings
-            await fetch(`http://localhost:3000/users/${userId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ meetingDetails: updatedMeetings })
+        function gisLoaded() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+                redirect_uri: REDIRECT_URI,
+                callback: handleAuthCallback,
             });
+            gisInited = true;
+            maybeEnableButtons();
+        }
 
-            // Fetch the events data
-            const eventsResponse = await fetch('http://localhost:3000/events');
-            const events = await eventsResponse.json();
+        function maybeEnableButtons() {
+            if (gapiInited && gisInited) {
+                document.getElementById('login_button').style.visibility = 'visible';
+            }
+        }
 
-            // Find and update the specific event detail
-            for (let event of events) {
-                const meetingIndex = event.meetingDetails.findIndex(detail => detail.id === bookingId);
-                if (meetingIndex !== -1) {
-                    // Update status to available
-                    event.meetingDetails[meetingIndex].status = 'available';
+        function handleAuthClick() {
+            tokenClient.requestAccessToken({ prompt: 'consent' });
+        }
 
-                    // Update the event data
-                    await fetch(`http://localhost:3000/events/${event.id}`, {
-                        method: 'PATCH',
+        function handleAuthCallback(response) {
+            if (response.error) {
+                console.error('Error during authentication:', response.error);
+                alert('Authentication failed. Check the console for details.');
+                return;
+            }
+            document.getElementById('login_button').style.display = 'none';
+            document.getElementById('logout_button').style.display = 'inline-block';
+            listUpcomingEvents();
+        }
+
+        async function listUpcomingEvents() {
+            let response;
+            try {
+                response = await gapi.client.calendar.events.list({
+                    'calendarId': 'primary',
+                    'timeMin': (new Date()).toISOString(),
+                    'showDeleted': false,
+                    'singleEvents': true,
+                    'maxResults': 10,
+                    'orderBy': 'startTime'
+                });
+            } catch (err) {
+                document.getElementById('calendarEvents').innerText = `Error: ${err.message}`;
+                return;
+            }
+
+            const events = response.result.items;
+            const eventsDiv = document.getElementById('calendarEvents');
+            eventsDiv.innerHTML = '';
+
+            if (events.length > 0) {
+                console.log(events)
+                events.forEach(event => {
+
+                    const eventCard = document.createElement('div');
+                    eventCard.className = 'event-card';
+                    eventCard.classList.add = 'card';
+
+                    const start = new Date(event.start.dateTime || event.start.date).toLocaleString();
+                    const end = new Date(event.end.dateTime || event.end.date).toLocaleString();
+
+                    eventCard.innerHTML = `
+                           <h3>${event.summary}</h3>
+                           <p><strong>Location:</strong> ${event.location || 'N/A'}</p>
+                           <p><strong>Start:</strong> ${start}</p>
+                           <p><strong>End:</strong> ${end}</p>
+                           <a href="${event.htmlLink}" target="_blank">Open Event in Google Calendar</a>
+                           <button onclick="viewEventDetails('${event.id}')">View Details</button>
+                       `;
+                    eventsDiv.appendChild(eventCard);
+
+                });
+
+                await storeEventsToJsonServer(events);
+
+            } else {
+                eventsDiv.innerHTML = '<p>No upcoming events found.</p>';
+            }
+            // console.log(data)
+
+        }
+
+
+
+        async function storeEventsToJsonServer(events) {
+            try {
+                // Fetch existing data from the server
+                const response = await fetch('http://localhost:3000/events');
+                let dbData = await response.json();
+
+                // Initialize dbData.events as an empty array if it's undefined
+                if (!dbData.events) {
+                    dbData.events = [];
+                }
+
+                // Find existing record index or create a new one
+                let userIndex = dbData.events.findIndex(user => user.id === events[0]?.creator?.email);
+
+                if (userIndex === -1) {
+                    // User not found, create a new record
+                    dbData.events.push({
+                        id: events[0].creator.email,
+                        meetingDetails: events.map(event => ({
+                            id: generateUniqueId(),
+                            startTime: new Date(event.start.dateTime).toISOString(),
+                            endTime: new Date(event.end.dateTime).toISOString(),
+                            summary: event.summary,
+                            link: event.htmlLink,
+                            status: "available"
+                        }))
+                    });
+                } else {
+                    // User found, update or add new events to the user's meetingDetails
+                    let updated = false;
+
+                    events.forEach(event => {
+                        let existingEventIndex = dbData.events[userIndex].meetingDetails.findIndex(
+                            e => e.id === event.id
+                        );
+
+                        if (existingEventIndex !== -1) {
+                            // Update existing event
+                            dbData.events[userIndex].meetingDetails[existingEventIndex] = {
+                                id: event.id,
+                                startTime: new Date(event.start.dateTime).toISOString(),
+                                endTime: new Date(event.end.dateTime).toISOString(),
+                                summary: event.summary,
+                                link: event.htmlLink,
+                                status: "available"
+                            };
+                            updated = true;
+                        } else {
+                            // Add new event
+                            dbData.events[userIndex].meetingDetails.push({
+                                id: generateUniqueId(),
+                                startTime: new Date(event.start.dateTime).toISOString(),
+                                endTime: new Date(event.end.dateTime).toISOString(),
+                                summary: event.summary,
+                                link: event.htmlLink,
+                                status: "available"
+                            });
+                            updated = true;
+                        }
+                    });
+
+                    // If events were updated, send a PATCH request to update server data
+                    if (updated) {
+                        const updateResponse = await fetch(`http://localhost:3000/events/${dbData.events[userIndex].id}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(dbData.events[userIndex])
+                        });
+
+                        if (!updateResponse.ok) {
+                            throw new Error('Failed to update event data on the server');
+                        }
+
+                        console.log('Events successfully updated on JSON server for user:', dbData.events[userIndex].id);
+                    }
+                }
+
+                // POST request to create new user data if userIndex was -1
+                if (userIndex === -1) {
+                    const createResponse = await fetch('http://localhost:3000/events', {
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(event)
+                        body: JSON.stringify(dbData.events[dbData.events.length - 1])
                     });
 
-                    break; // Stop searching after updating the event
+                    if (!createResponse.ok) {
+                        throw new Error('Failed to create new user data on the server');
+                    }
+
+                    console.log('New user data successfully stored on JSON server');
                 }
+            } catch (error) {
+                console.error('Error storing events to JSON server:', error);
+            }
+        }
+
+        // Example function to generate a unique ID (you may need a proper UUID library)
+        function generateUniqueId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        // Example function to generate a unique ID (you may need a proper UUID library)
+        function generateUniqueId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        async function createEvent(event) {
+            event.preventDefault();
+
+            const summary = document.getElementById('eventSummary').value;
+            const location = document.getElementById('eventLocation').value;
+            const start = document.getElementById('eventStart').value;
+            const end = document.getElementById('eventEnd').value;
+            const notificationMethod = document.getElementById('notificationMethod').value;
+            const notificationMinutes = parseInt(document.getElementById('notificationMinutes').value, 10);
+
+            const eventData = {
+                summary: summary,
+                location: location,
+                start: {
+                    dateTime: new Date(start).toISOString(),
+                    timeZone: 'America/Los_Angeles',
+                },
+                end: {
+                    dateTime: new Date(end).toISOString(),
+                    timeZone: 'America/Los_Angeles',
+                },
+                reminders: {
+                    useDefault: false,
+                    overrides: [{
+                        method: notificationMethod,
+                        minutes: notificationMinutes
+                    }]
+                }
+            };
+            try {
+                const response = await gapi.client.calendar.events.insert({
+                    'calendarId': 'primary',
+                    'resource': eventData
+                });
+                alert('Event created successfully!');
+                listUpcomingEvents(); // Refresh the event list
+            } catch (error) {
+                console.error('Error creating event:', error);
+                alert('Failed to create event. Check the console for details.');
             }
 
-            // Reload the bookings
-            loadBookings();
+            //   console.log(eventData)
         }
 
-        function rescheduleBooking(event) {
-            const bookingId = event.target.getAttribute('data-id');
-            // Implement reschedule functionality here
+        async function viewEventDetails(eventId) {
+            try {
+                const response = await gapi.client.calendar.events.get({
+                    'calendarId': 'primary',
+                    'eventId': eventId
+                });
+
+                const event = response.result;
+
+                document.getElementById('eventSummaryDetail').innerText = `Summary: ${event.summary}`;
+                document.getElementById('eventLocationDetail').innerText = `Location: ${event.location || 'N/A'}`;
+                document.getElementById('eventStartDetail').innerText = `Start: ${new Date(event.start.dateTime || event.start.date).toLocaleString()}`;
+                document.getElementById('eventEndDetail').innerText = `End: ${new Date(event.end.dateTime || event.end.date).toLocaleString()}`;
+                document.getElementById('eventInviteLink').href = event.htmlLink;
+                document.getElementById('eventId').value = event.id;
+                document.getElementById('eventModal').style.display = 'flex';
+            } catch (error) {
+                console.error('Error fetching event details:', error);
+                alert('Failed to fetch event details. Check the console for details.');
+            }
         }
 
-        // Initial load
-        loadBookings();
+        function closeModal() {
+            document.getElementById('eventModal').style.display = 'none';
+        }
+
+        function shareEventLink() {
+            const link = document.getElementById('eventInviteLink').href;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Event link copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy the link:', err);
+                alert('Failed to copy the link. Check the console for details.');
+            });
+        }
+
+        async function deleteEvent() {
+            const eventId = document.getElementById('eventId').value;
+
+            try {
+                await gapi.client.calendar.events.delete({
+                    'calendarId': 'primary',
+                    'eventId': eventId
+                });
+                alert('Event deleted successfully!');
+                listUpcomingEvents(); // Refresh the event list
+                closeModal(); // Hide the modal
+            } catch (error) {
+                console.error('Error deleting event:', error);
+                alert('Failed to delete event. Check the console for details.');
+            }
+        }
+
+        function handleSignOut() {
+            gapi.auth2.getAuthInstance().signOut().then(() => {
+                document.getElementById('login_button').style.display = 'inline-block';
+                document.getElementById('logout_button').style.display = 'none';
+                document.getElementById('calendarEvents').innerHTML = '';
+                closeModal();
+            });
+        }
+
+        let handleRedirect = () => {
+            window.location.href = "../index.html"
+        }
+
+        let logout_button = document.getElementById("logout_button")
+        logout_button.addEventListener("click", handleRedirect)
+        document.getElementById('createEventForm').addEventListener('submit', createEvent);
+        document.getElementById('deleteEventButton').addEventListener('click', deleteEvent);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const mobileMenu = document.getElementById("mobile-menu");
+            const navLinks = document.querySelector(".nav-links");
+
+            mobileMenu.addEventListener("click", function () {
+                navLinks.classList.toggle("active");
+            });
+
+            //  calendar and form submission logic...
+        });
     </script>
+    <script src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 </body>
+
 </html>

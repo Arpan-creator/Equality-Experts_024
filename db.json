@@ -70,7 +70,7 @@
           "endTime": "2024-07-25T18:21:00.000Z",
           "summary": "task-2",
           "link": "https://www.google.com/calendar/event?eid=bzZ1b3J2bG9ybzFodW84czVtYjh1NGQwNDAgaS5yaXRpa2FtaXNoQG0",
-          "status": "available"
+          "status": "confirmed"
         },
         {
           "id": "lyveq36se87qh1uxit9",
@@ -111,6 +111,14 @@
           "endTime": "2024-07-22T13:22:00.000Z",
           "summary": "Scheduler",
           "link": "https://www.google.com/calendar/event?eid=ODJicm5rcWJvazVqYzZpaGVxaXFlOXM2aDQgaS5yaXRpa2FtaXNoQG0",
+          "status": "confirmed"
+        },
+        {
+          "id": "lyveq36s4hza1angbn1",
+          "startTime": "2024-07-23T21:25:00.000Z",
+          "endTime": "2024-07-25T18:21:00.000Z",
+          "summary": "task-2",
+          "link": "https://www.google.com/calendar/event?eid=bzZ1b3J2bG9ybzFodW84czVtYjh1NGQwNDAgaS5yaXRpa2FtaXNoQG0",
           "status": "confirmed"
         }
       ]
