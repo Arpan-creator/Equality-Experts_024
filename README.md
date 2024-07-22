@@ -85,12 +85,10 @@ Navigate to the landing page where both admin and users can log in.
 Admins can log in using Google Authentication.
 Set availability for meetings which will be visible to users.
 
-10 **User Dashboard:**
+10. **User Dashboard:**
 Users can view the available slots set by the admin.
 Book meetings by selecting the desired time slots.
 View and manage booked slots, including the option to delete bookings.
-
-
 
 Google Calendar Integration
 This app uses Google Calendar API for scheduling and managing meetings. To integrate with Google Calendar:
