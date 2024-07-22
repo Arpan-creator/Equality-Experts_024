@@ -61,13 +61,13 @@ If you are using any package manager, install the required packages.
 Set up Google Calendar API and Google OAuth as per the instructions on the Google Developer Console.
 Obtain the API keys and client IDs.
 
-4 **Configure the application:**
+4. **Configure the application:**
 
 Replace the placeholder API keys and client IDs in your JavaScript code with the actual keys obtained from Google.
 Set up a local server:
 You can use any local server like http-server or live-server.
 
-5 **Install dependencies:**
+5. **Install dependencies:**
 If you are using any package manager, install the required packages.
 
 6. **Google API Setup:**
