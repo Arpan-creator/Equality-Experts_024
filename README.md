@@ -60,6 +60,7 @@ If you are using any package manager, install the required packages.
 
 Set up Google Calendar API and Google OAuth as per the instructions on the Google Developer Console.
 Obtain the API keys and client IDs.
+
 4 **Configure the application:**
 
 Replace the placeholder API keys and client IDs in your JavaScript code with the actual keys obtained from Google.
@@ -69,23 +70,22 @@ You can use any local server like http-server or live-server.
 5 **Install dependencies:**
 If you are using any package manager, install the required packages.
 
-6 **Google API Setup:**
-
+6. **Google API Setup:**
 Set up Google Calendar API and Google OAuth as per the instructions on the Google Developer Console.
 Obtain the API keys and client IDs.
-7 **Configure the application:**
 
+7. **Configure the application:**
 Replace the placeholder API keys and client IDs in your JavaScript code with the actual keys obtained from Google.
 Usage
-8 **Landing Page:**
 
+8. **Landing Page:**
 Navigate to the landing page where both admin and users can log in.
-9 **Admin Dashboard:**
 
+9. **Admin Dashboard:**
 Admins can log in using Google Authentication.
 Set availability for meetings which will be visible to users.
-10 **User Dashboard:**
 
+10 **User Dashboard:**
 Users can view the available slots set by the admin.
 Book meetings by selecting the desired time slots.
 View and manage booked slots, including the option to delete bookings.
