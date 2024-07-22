@@ -25,8 +25,13 @@ User Dashboard:
 Users can view the available slots set by the admin.
 Book meetings by selecting the desired time slots.
 View and manage booked slots, including the option to delete bookings.
-Screenshots
+
 Landing Page
+
+![Landing Page](https://github.com/user-attachments/assets/b2a0310a-d85b-420f-b43e-1e4750accc44)
+
+Admin Login
+![Admin Login](https://github.com/user-attachments/assets/897a5d47-858a-4575-bd62-88ea6e8a1c84)
 
 Admin Dashboard
 
@@ -34,7 +39,11 @@ Admin Dashboard
 
 User Dashboard
 
+![User DashBoard](https://github.com/user-attachments/assets/4e2294e2-60b2-49ef-8e08-a969e3f043a4)
+
 Booking Management
+
+![Booked Slots](https://github.com/user-attachments/assets/92fe47f1-0f53-4c7b-8c36-1cf8d1a67cff)
 
 Google Calendar Integration
 This app uses Google Calendar API for scheduling and managing meetings. To integrate with Google Calendar:
