@@ -3,9 +3,26 @@
 
 # Scheduler App
 
-Scheduler App is a web-based application designed to schedule meetings with clients across the globe. It features a common landing page, admin dashboard, and user (or client) dashboard. Admins can set their availability, which is then visible to users for booking. Users can view and manage their booked slots, including the option to delete bookings.
+1.Scheduler App is a web-based application designed to schedule meetings with clients across the globe. It features a common landing page, admin dashboard, and user (or client) dashboard. Admins can set their availability, which is then visible to users for booking. Users can view and manage their booked slots, including the option to delete bookings.
+2.**Set up a local server:**
+You can use any local server like http-server or live-server.
 
+3.**Install dependencies:**
+If you are using any package manager, install the required packages.
 
+4.**Google API Setup:**
+
+Set up Google Calendar API and Google OAuth as per the instructions on the Google Developer Console.
+Obtain the API keys and client IDs.
+5.**Configure the application:**
+
+Replace the placeholder API keys and client IDs in your JavaScript code with the actual keys obtained from Google.
+6.**Deployed JSON Server:**
+
+-The JSON server is deployed and can be accessed at JSON Server URL.
+Make sure to update the placeholder URL (`your-json-server-url`) with the actual URL where your JSON server is deployed. Additionally, ensure your screenshots are placed in the `screenshots` directory and the paths in the README match the filenames.
+
+-***USAGE***
 - **Landing Page**: Common landing page for both admin and users.
 - ![Landing Page](https://github.com/user-attachments/assets/b2a0310a-d85b-420f-b43e-1e4750accc44)
 - **Admin Dashboard**: Admins can set their availability for meetings.
@@ -31,43 +48,43 @@ Scheduler App is a web-based application designed to schedule meetings with clie
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/scheduler-app.git
+   git clone [https://github.com/yourusername/scheduler-app.git](https://github.com/Arpan-creator/Equality-Experts_024.git)
    cd scheduler-app
 Set up a local server:
 You can use any local server like http-server or live-server.
 
-Install dependencies:
+2. **Install dependencies:**
 If you are using any package manager, install the required packages.
 
-Google API Setup:
+3 **Google API Setup:**
 
 Set up Google Calendar API and Google OAuth as per the instructions on the Google Developer Console.
 Obtain the API keys and client IDs.
-Configure the application:
+4 **Configure the application:**
 
 Replace the placeholder API keys and client IDs in your JavaScript code with the actual keys obtained from Google.
 Set up a local server:
 You can use any local server like http-server or live-server.
 
-Install dependencies:
+5 **Install dependencies:**
 If you are using any package manager, install the required packages.
 
-Google API Setup:
+6 **Google API Setup:**
 
 Set up Google Calendar API and Google OAuth as per the instructions on the Google Developer Console.
 Obtain the API keys and client IDs.
-Configure the application:
+7 **Configure the application:**
 
 Replace the placeholder API keys and client IDs in your JavaScript code with the actual keys obtained from Google.
 Usage
-Landing Page:
+8 **Landing Page:**
 
 Navigate to the landing page where both admin and users can log in.
-Admin Dashboard:
+9 **Admin Dashboard:**
 
 Admins can log in using Google Authentication.
 Set availability for meetings which will be visible to users.
-User Dashboard:
+10 **User Dashboard:**
 
 Users can view the available slots set by the admin.
 Book meetings by selecting the desired time slots.
