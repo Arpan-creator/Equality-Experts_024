@@ -4,6 +4,7 @@
 # Scheduler App
 
 1.Scheduler App is a web-based application designed to schedule meetings with clients across the globe. It features a common landing page, admin dashboard, and user (or client) dashboard. Admins can set their availability, which is then visible to users for booking. Users can view and manage their booked slots, including the option to delete bookings.
+
 2.**Set up a local server:**
 You can use any local server like http-server or live-server.
 
