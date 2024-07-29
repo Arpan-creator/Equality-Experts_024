@@ -67,40 +67,46 @@ You can use any local server like http-server or live-server.
 If you are using any package manager, install the required packages.
 
 4. **Google API Setup:**
+   - Set up Google Calendar API and Google OAuth as per the instructions on the Google Developer Console.
+   - Obtain the API keys and client IDs.
+     - Follow the instructions provided by Google to generate and retrieve your API keys and client IDs.
+     - Ensure you secure your credentials and configure your application settings properly.
 
-Set up Google Calendar API and Google OAuth as per the instructions on the Google Developer Console.
-Obtain the API keys and client IDs.
 5. **Configure the application:**
-Replace the placeholder API keys and client IDs in your JavaScript code with the actual keys obtained from Google.
+   Replace the placeholder API keys and client IDs in your JavaScript code with the actual keys obtained from Google.
 
 6. **Deployed JSON Server:**
-The JSON server is deployed and can be accessed at JSON Server URL. Make sure to update the placeholder URL (your-json-server-url) with the actual URL where your JSON server is deployed.
-Usage
-Landing Page:
-Navigate to the landing page where both admin and users can log in.
+   The JSON server is deployed and can be accessed at JSON Server URL. Make sure to update the placeholder URL (your-json-server-url) with the actual URL where your JSON         server is deployed.
+   
+## Usage
+**Landing Page:**
+  - Navigate to the landing page where both admin and users can log in.
 
-Admin Dashboard:
+**Admin Dashboard:**
+  - Admins can log in using Google Authentication.
+  - Set availability for meetings which will be visible to users.
+  - 
+**User Dashboard:**
+  - Users can view the available slots set by the admin.
+  - Book meetings by selecting the desired time slots.
+  - View and manage booked slots, including the option to delete bookings.
+  - 
+**Google Calendar Integration**
+  - This app uses Google Calendar API for scheduling and managing meetings. To integrate with Google Calendar:
+  - Go to the Google Developer Console.
+  - Create a new project or select an existing project.
+  - Enable the Google Calendar API.
+  - Set up OAuth 2.0 credentials.
+  - Use the obtained API keys and client IDs in your application.
 
-Admins can log in using Google Authentication.
-Set availability for meetings which will be visible to users.
-User Dashboard:
 
-Users can view the available slots set by the admin.
-Book meetings by selecting the desired time slots.
-View and manage booked slots, including the option to delete bookings.
+**Contributing**
+  - We welcome contributions from the community! Please follow these steps to contribute:
 
-Google Calendar Integration
-This app uses Google Calendar API for scheduling and managing meetings. To integrate with Google Calendar:
-
-Go to the Google Developer Console.
-Create a new project or select an existing project.
-Enable the Google Calendar API.
-Set up OAuth 2.0 credentials.
-Use the obtained API keys and client IDs in your application.
-Contributing
-We welcome contributions from the community! Please follow these steps to contribute:
-
-Fork the repository.
-Create a new branch.
-Make your changes.
-Submit a pull request.
+ `-` Fork the repository.
+ 
+ `-` Create a new branch.
+ 
+ `-` Make your changes.
+ 
+ `-` Submit a pull request.
