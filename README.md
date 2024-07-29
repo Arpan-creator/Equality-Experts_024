@@ -4,21 +4,20 @@
 # Scheduler App
 
 1.Scheduler App is a web-based application designed to schedule meetings with clients across the globe. It features a common landing page, admin dashboard, and user (or client) dashboard. Admins can set their availability, which is then visible to users for booking. Users can view and manage their booked slots, including the option to delete bookings.
-
-2.**Set up a local server:**
+2. **Set up a local server:**
 You can use any local server like http-server or live-server.
 
-3.**Install dependencies:**
+3. **Install dependencies:**
 If you are using any package manager, install the required packages.
 
-4.**Google API Setup:**
+4. **Google API Setup:**
 Set up Google Calendar API and Google OAuth as per the instructions on the Google Developer Console.
 Obtain the API keys and client IDs.
 
-5.**Configure the application:**
+5. **Configure the application:**
 
 Replace the placeholder API keys and client IDs in your JavaScript code with the actual keys obtained from Google.
-6.**Deployed JSON Server:**
+6. **Deployed JSON Server:**
 
 -The JSON server is deployed and can be accessed at JSON Server URL.
 Make sure to update the placeholder URL (`your-json-server-url`) with the actual URL where your JSON server is deployed. Additionally, ensure your screenshots are placed in the `screenshots` directory and the paths in the README match the filenames.
@@ -36,6 +35,31 @@ Make sure to update the placeholder URL (`your-json-server-url`) with the actual
 - ![Booked Slots](https://github.com/user-attachments/assets/92fe47f1-0f53-4c7b-8c36-1cf8d1a67cff)
 - **Google Calendar Integration**: Seamlessly integrates with Google Calendar to manage meetings.
 - **Google Authentication**: Secure authentication for admins using Google OAuth.
+## Folder Structure :
+Equality-Experts_024/
+│
+├── image/
+│   └── [images used in the project]
+│
+├── pages/
+│   ├── admin_dashboard.html
+│   ├── index.html
+│   ├── login.html
+│   ├── user_dashboard.html
+│   └── user_slots.html
+│
+├── temporary/
+│   └── [temporary files]
+│
+├── .gitignore
+├── README.md
+├── db.json
+├── index.html
+├── navbar.html
+├── package-lock.json
+├── package.json
+├── script.js
+└── styles.css
 
 ## Technologies Used
 
