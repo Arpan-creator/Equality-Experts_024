@@ -35,7 +35,7 @@ Make sure to update the placeholder URL (`your-json-server-url`) with the actual
 - ![Booked Slots](https://github.com/user-attachments/assets/92fe47f1-0f53-4c7b-8c36-1cf8d1a67cff)
 - **Google Calendar Integration**: Seamlessly integrates with Google Calendar to manage meetings.
 - **Google Authentication**: Secure authentication for admins using Google OAuth.
-## Folder Structure :
+## Folder Structure 
 Equality-Experts_024/
 │
 ├── image/
@@ -61,19 +61,7 @@ Equality-Experts_024/
 ├── script.js
 └── styles.css
 
-
-3. Save your changes and commit them to your repository.
-
-This will display the folder structure in your README file.
-
-
-
-
-
-
-
-
-
+Make sure the indents use spaces and not tabs to keep the structure aligned. This will render correctly on GitHub.
 
 ## Technologies Used
 
