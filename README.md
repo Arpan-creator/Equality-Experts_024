@@ -36,32 +36,31 @@ Make sure to update the placeholder URL (`your-json-server-url`) with the actual
 - **Google Calendar Integration**: Seamlessly integrates with Google Calendar to manage meetings.
 - **Google Authentication**: Secure authentication for admins using Google OAuth.
 ## Folder Structure 
-Equality-Experts_024/
-│
-├── image/
-│ └── [images used in the project]
-│
-├── pages/
-│ ├── admin_dashboard.html
-│ ├── index.html
-│ ├── login.html
-│ ├── user_dashboard.html
-│ └── user_slots.html
-│
-├── temporary/
-│ └── [temporary files]
-│
-├── .gitignore
-├── README.md
-├── db.json
-├── index.html
-├── navbar.html
-├── package-lock.json
-├── package.json
-├── script.js
-└── styles.css
+      Equality-Experts_024/
+      │
+      ├── image/
+      │ └── [images used in the project]
+      │
+      ├── pages/
+      │ ├── admin_dashboard.html
+      │ ├── index.html
+      │ ├── login.html
+      │ ├── user_dashboard.html
+      │ └── user_slots.html
+      │
+      ├── temporary/
+      │ └── [temporary files]
+      │
+      ├── .gitignore
+      ├── README.md
+      ├── db.json
+      ├── index.html
+      ├── navbar.html
+      ├── package-lock.json
+      ├── package.json
+      ├── script.js
+      └── styles.css
 
-Make sure the indents use spaces and not tabs to keep the structure aligned. This will render correctly on GitHub.
 
 ## Technologies Used
 
