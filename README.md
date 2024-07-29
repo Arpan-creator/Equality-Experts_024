@@ -20,7 +20,7 @@ Scheduler App is a web-based application designed to schedule meetings with clie
 7. **Google Authentication**: Secure authentication for admins using Google OAuth.
 
 ## Folder Structure
-    Equality-Experts_024/
+   Equality-Experts_024/
    │
    ├── image/
    │ └── [images used in the project]
