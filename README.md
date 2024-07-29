@@ -20,30 +20,30 @@ Scheduler App is a web-based application designed to schedule meetings with clie
 7. **Google Authentication**: Secure authentication for admins using Google OAuth.
 
 ## Folder Structure
-Equality-Experts_024/
-│
-├── image/
-│ └── [images used in the project]
-│
-├── pages/
-│ ├── admin.html
-│ ├── bookings.html
-│ ├── login.html
-│ ├── signup.html
-│ └── user.html
-│
-├── temporary/
-│ └── [temporary files]
-│
-├── .gitignore
-├── README.md
-├── db.json
-├── index.html
-├── navbar.html
-├── package-lock.json
-├── package.json
-├── script.js
-└── styles.css
+      Equality-Experts_024/
+      │
+      ├── image/
+      │ └── [images used in the project]
+      │
+      ├── pages/
+      │ ├── admin.html
+      │ ├── bookings.html
+      │ ├── login.html
+      │ ├── signup.html
+      │ └── user.html
+      │
+      ├── temporary/
+      │ └── [temporary files]
+      │
+      ├── .gitignore
+      ├── README.md
+      ├── db.json
+      ├── index.html
+      ├── navbar.html
+      ├── package-lock.json
+      ├── package.json
+      ├── script.js
+      └── styles.css
 
 
 ## Technologies Used
