@@ -39,17 +39,17 @@ Make sure to update the placeholder URL (`your-json-server-url`) with the actual
 Equality-Experts_024/
 │
 ├── image/
-│   └── [images used in the project]
+│ └── [images used in the project]
 │
 ├── pages/
-│   ├── admin_dashboard.html
-│   ├── index.html
-│   ├── login.html
-│   ├── user_dashboard.html
-│   └── user_slots.html
+│ ├── admin_dashboard.html
+│ ├── index.html
+│ ├── login.html
+│ ├── user_dashboard.html
+│ └── user_slots.html
 │
 ├── temporary/
-│   └── [temporary files]
+│ └── [temporary files]
 │
 ├── .gitignore
 ├── README.md
@@ -60,6 +60,20 @@ Equality-Experts_024/
 ├── package.json
 ├── script.js
 └── styles.css
+
+
+3. Save your changes and commit them to your repository.
+
+This will display the folder structure in your README file.
+
+
+
+
+
+
+
+
+
 
 ## Technologies Used
 
