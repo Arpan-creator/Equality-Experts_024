@@ -4,7 +4,7 @@
 # Scheduler App
 
 1.Scheduler App is a web-based application designed to schedule meetings with clients across the globe. It features a common landing page, admin dashboard, and user (or client) dashboard. Admins can set their availability, which is then visible to users for booking. Users can view and manage their booked slots, including the option to delete bookings.
-2. **Set up a local server:**
+-2. **Set up a local server:**
 You can use any local server like http-server or live-server.
 
 3. **Install dependencies:**
@@ -42,11 +42,11 @@ Make sure to update the placeholder URL (`your-json-server-url`) with the actual
       │ └── [images used in the project]
       │
       ├── pages/
-      │ ├── admin_dashboard.html
-      │ ├── index.html
+      │ ├── admin.html
+      │ ├── bookings.html
       │ ├── login.html
-      │ ├── user_dashboard.html
-      │ └── user_slots.html
+      │ ├── signup.html
+      │ └── user.html
       │
       ├── temporary/
       │ └── [temporary files]
