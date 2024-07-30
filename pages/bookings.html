@@ -148,8 +148,7 @@
     <div id="button">
         <button id="home">Home</button>
         <button id="slotsPage">Slots Availability</button>
-        <button class="btn-login" id="logout_button login" onclick="handleSignOut()">Log
-            Out</button>
+        <button id="logout_button">LogOut</button>
         <div id="admin">
             <img style="border-radius: 50%;height: 40px; cursor: pointer; " src="../Equality-Experts_024/image/Nav-image/5315311-middle.png" alt="">
            
@@ -171,17 +170,16 @@
     <script>
         let slotsPage = document.querySelector("#slotsPage")
         let home = document.querySelector("#home")
-        let btnlogin = document.querySelector(".btn-login")
-        let redirectHome = () => {
-
-        }
-        btnlogin.addEventListener("click", redirectHome)
+        let btnlogout = document.querySelector("#logout_button")
+        
         home.addEventListener("click", () => {
             // localStorage.removeItem("loggedUser")
             window.location.href = "../index.html"
         })
 
-
+        btnlogout.addEventListener("click",()=>{
+            window.location.href="../index.html"
+        })
         slotsPage.addEventListener("click", () => {
             window.location.href = "./user.html"
         })
