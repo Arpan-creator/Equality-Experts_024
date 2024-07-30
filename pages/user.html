@@ -106,8 +106,6 @@
         }
 
 
-
-
         .hide {
             display: none;
             visibility: hidden;
@@ -184,8 +182,7 @@
     <div id="button">
         <button id="home">Home</button>
         <button id="bookings">Bookings</button>
-        <button  class="btn-login" id="logout_button login" onclick="handleSignOut()">Log
-            Out</button>
+        <button id="logout_button">LogOut</button>
       
     </div>
     <!-- <div class="menusection">
@@ -207,17 +204,23 @@
         let slotContainer = document.querySelector(".slotContainer");
         let url = 'https://mock-api-server-ls06.onrender.com/events'; // Adjusted URL for events
         let home = document.querySelector("#home")
-        let btnlogin = document.querySelector(".btn-login")
+        // let btnlogin = document.querySelector(".btn-login")
         let bookings = document.querySelector("#bookings")
+        let btnlogout = document.querySelector("#logout_button")
         
-        let redirectHome = () => {
+        // let redirectHome = () => {
            
-        }
-        btnlogin.addEventListener("click", redirectHome)
+        // }
+        // btnlogin.addEventListener("click", redirectHome)
         home.addEventListener("click", ()=>{
             // localStorage.removeItem("loggedUser")
             window.location.href = "../index.html"
         })
+        btnlogout.addEventListener("click", ()=>{
+            // localStorage.removeItem("loggedUser")
+            window.location.href = "../index.html"
+        })
+        
 
 
         bookings.addEventListener("click" , ()=>{
